@@ -37,6 +37,11 @@
       "LmcTest\\Rbac\\Mezzio\\": "test/"
     }
   },
+  "extra": {
+    "laminas": {
+      "config-provider": "Lmc\\Rbac\\Mezzio\\ConfigProvider"
+    }
+  },
   "scripts": {
     "check": [
       "@cs-check",
