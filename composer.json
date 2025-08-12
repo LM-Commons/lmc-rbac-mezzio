@@ -1,0 +1,58 @@
+{
+  "name": "lm-commons/lmc-rbac-mezzio",
+  "description": "Role-Base Access Control for Mezzio",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Eric Richer",
+      "email": "eric.richer@vistoconsulting.com"
+    }
+  ],
+  "config": {
+    "platform": {
+      "php": "8.2.99"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "require": {
+    "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+    "lm-commons/lmc-rbac": "2.2.x-dev",
+    "mezzio/mezzio-router": "^4.0"
+  },
+  "require-dev": {
+    "laminas/laminas-coding-standard": "^3.1",
+    "phpunit/phpunit": "^11.5 || ^12.3",
+    "psalm/plugin-phpunit": "^0.19",
+    "vimeo/psalm": "^6.13"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lmc\\Rbac\\Mezzio\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "LmcTest\\Rbac\\Mezzio\\": "test/"
+    }
+  },
+  "scripts": {
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "test": "phpunit",
+    "test-coverage": "phpunit --coverage-clover ./build/logs/clover.xml",
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "test-coverage-html": "phpunit --coverage-html ./build/html",
+    "static-analysis": "psalm --shepherd --stats"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "c:/lm-commons/LmcRbac"
+    }
+  ]
+}
