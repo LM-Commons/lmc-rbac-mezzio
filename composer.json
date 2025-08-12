@@ -19,7 +19,7 @@
   "require": {
     "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
     "lm-commons/lmc-rbac": "2.2.x-dev",
-    "mezzio/mezzio-router": "^4.0"
+    "mezzio/mezzio-router": "^3.7"
   },
   "require-dev": {
     "laminas/laminas-coding-standard": "^3.1",
