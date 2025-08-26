@@ -26,6 +26,8 @@ class RouteGuard extends AbstractGuard
     public function isGranted(ServerRequestInterface $request): bool
     {
         $matchedRouteName = $request->getAttribute(RouteResult::class);
+
+        return true;
     }
 
     public function setRules(array $rules): void

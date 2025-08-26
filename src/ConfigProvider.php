@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio;
 
-use Lmc\Rbac\Mezzio\Guard\RouteGuard;
-use Lmc\Rbac\Mezzio\Guard\RouteGuardFactory;
-
 final class ConfigProvider
 {
     public function __invoke(): array
@@ -21,8 +18,9 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                Options\Options::class => Options\OptionsFactory::class,
-                RouteGuard::class      => RouteGuardFactory::class,
+                Options\Options::class                => Options\OptionsFactory::class,
+                Guard\RouteGuard::class               => Guard\RouteGuardFactory::class,
+                Middleware\RbacGuardMiddleware::class => Middleware\RbacGuardMiddlewareFactory::class,
             ],
         ];
     }
