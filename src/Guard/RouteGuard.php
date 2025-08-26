@@ -17,7 +17,8 @@ class RouteGuard extends AbstractGuard
 
     public function __construct(
         private readonly RoleServiceInterface $roleService,
-        array $rules = []
+        array $rules = [],
+        string $protectionPolicy = GuardInterface::POLICY_ALLOW
     ) {
         $this->setRules($rules);
     }
