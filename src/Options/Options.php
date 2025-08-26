@@ -14,6 +14,10 @@ use Lmc\Rbac\Mezzio\Guard\GuardInterface;
  */
 class Options extends AbstractOptions
 {
+    // phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore,WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCapsProperty
+    protected $__strictMode__ = false;
+    // phpcs: enable
+
     protected array $guards = [];
 
     /**
