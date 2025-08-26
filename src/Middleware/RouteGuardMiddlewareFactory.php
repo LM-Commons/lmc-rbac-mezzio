@@ -6,10 +6,11 @@ namespace Lmc\Rbac\Mezzio\Middleware;
 
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
+use Lmc\Rbac\Mezzio\Guard\RouteGuard;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 
-class RbacGuardMiddlewareFactory implements FactoryInterface
+class RouteGuardMiddlewareFactory implements FactoryInterface
 {
 
     /**
@@ -17,8 +18,8 @@ class RbacGuardMiddlewareFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): MiddlewareInterface
     {
-        return new RbacGuardMiddleware(
-            $container->get(GuardInterface::class),
+        return new RouteGuardMiddleware(
+            $container->get(RouteGuard::class),
         );
     }
 }

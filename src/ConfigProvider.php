@@ -18,9 +18,9 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                Options\Options::class                => Options\OptionsFactory::class,
-                Guard\RouteGuard::class               => Guard\RouteGuardFactory::class,
-                Middleware\RbacGuardMiddleware::class => Middleware\RbacGuardMiddlewareFactory::class,
+                Options\Options::class                 => Options\OptionsFactory::class,
+                Guard\RouteGuard::class                => Guard\RouteGuardFactory::class,
+                Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
             ],
         ];
     }

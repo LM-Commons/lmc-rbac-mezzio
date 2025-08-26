@@ -10,11 +10,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class RbacGuardMiddleware implements MiddlewareInterface
+class RouteGuardMiddleware implements MiddlewareInterface
 {
 
     public function __construct(
-        private GuardInterface $guard,
+        private GuardInterface $routeGuard,
     ) {
     }
 
