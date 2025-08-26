@@ -23,6 +23,7 @@ class RouteGuardMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        $granted = $this->routeGuard->isGranted($request);
         return $handler->handle($request);
     }
 }
