@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio\Guard;
 
-use Lmc\Rbac\Mezzio\Options\Options;
-use Lmc\Rbac\Service\RoleServiceInterface;
+use Lmc\Authentication\UserInterface;
+use Lmc\Rbac\Identity\IdentityInterface;
+use Lmc\Rbac\Mezzio\Service\RoleService;
 use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -16,18 +17,39 @@ class RouteGuard extends AbstractGuard
     protected array $rules = [];
 
     public function __construct(
-        private readonly RoleServiceInterface $roleService,
+        private readonly RoleService $roleService,
         array $rules = [],
         string $protectionPolicy = GuardInterface::POLICY_ALLOW
     ) {
         $this->setRules($rules);
+        $this->setProtectionPolicy($protectionPolicy);
     }
 
     public function isGranted(ServerRequestInterface $request): bool
     {
-        $matchedRouteName = $request->getAttribute(RouteResult::class);
+        /** @var RouteResult $routeResult */
+        $routeResult = $request->getAttribute(RouteResult::class);
+        $matchedRouteName = $routeResult->getMatchedRouteName();
+        $allowedRoles = null;
 
-        return true;
+        foreach (array_keys($this->rules) as $routeRule) {
+            if (fnmatch($routeRule, $matchedRouteName, FNM_CASEFOLD)) {
+                $allowedRoles = $this->rules[$routeRule];
+                break;
+            }
+        }
+
+        if (null === $allowedRoles) {
+            return $this->protectionPolicy === GuardInterface::POLICY_ALLOW;
+        }
+
+        /** @var array $allowedRoles */
+        if (in_array('*', $allowedRoles)) {
+            return true;
+        }
+
+        $identity = $request->getAttribute(UserInterface::class);
+        return $this->roleService->matchIdentityRoles($identity, $allowedRoles);
     }
 
     public function setRules(array $rules): void

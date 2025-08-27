@@ -18,6 +18,7 @@
   },
   "require": {
     "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+    "lm-commons/lmc-authentication": "1.0.x-dev",
     "lm-commons/lmc-rbac": "2.2.x-dev",
     "mezzio/mezzio-router": "^3.7"
   },
@@ -58,6 +59,10 @@
     {
       "type": "git",
       "url": "c:/lm-commons/LmcRbac"
+    },
+    {
+      "type": "git",
+      "url": "c:/lm-commons/lmc-authentication"
     }
   ]
 }
