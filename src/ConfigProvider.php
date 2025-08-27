@@ -20,6 +20,7 @@ final class ConfigProvider
             'factories' => [
                 Options\Options::class                 => Options\OptionsFactory::class,
                 Guard\RouteGuard::class                => Guard\RouteGuardFactory::class,
+                Service\RoleService::class             => Service\RoleServiceFactory::class,
                 Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
             ],
         ];
