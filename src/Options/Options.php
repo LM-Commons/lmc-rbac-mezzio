@@ -65,7 +65,7 @@ class Options extends AbstractOptions
      * @param iterable<string, TValue> $unauthorizedStrategyOptions
      * @return void
      */
-    public function setUnauthorizedStrategy(array $unauthorizedStrategyOptions): void
+    public function setUnauthorizedStrategyOptions(array $unauthorizedStrategyOptions): void
     {
         $this->unauthorizedStrategyOptions = new UnauthorizedStrategyOptions($unauthorizedStrategyOptions);
     }
@@ -73,7 +73,7 @@ class Options extends AbstractOptions
     /**
      * Get the unauthorized strategy options
      */
-    public function getUnauthorizedStrategy(): ?UnauthorizedStrategyOptions
+    public function getUnauthorizedStrategyOptions(): ?UnauthorizedStrategyOptions
     {
         if (null === $this->unauthorizedStrategyOptions) {
             $this->unauthorizedStrategyOptions = new UnauthorizedStrategyOptions();
@@ -86,7 +86,7 @@ class Options extends AbstractOptions
      * Set the redirect strategy options
      * @param iterable<string, TValue> $redirectStrategyOptions
      */
-    public function setRedirectStrategy(array $redirectStrategyOptions): void
+    public function setRedirectStrategyOptions(array $redirectStrategyOptions): void
     {
         $this->redirectStrategyOptions = new RedirectStrategyOptions($redirectStrategyOptions);
     }
@@ -94,7 +94,7 @@ class Options extends AbstractOptions
     /**
      * Get the redirect strategy options
      */
-    public function getRedirectStrategy(): ?RedirectStrategyOptions
+    public function getRedirectStrategyOptions(): ?RedirectStrategyOptions
     {
         if (null === $this->redirectStrategyOptions) {
             $this->redirectStrategyOptions = new RedirectStrategyOptions();
