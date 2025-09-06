@@ -15,9 +15,9 @@ use Psr\Http\Message\ResponseInterface;
 class RedirectStrategy extends AbstractStrategy
 {
     public function __construct(
-        private readonly RedirectStrategyOptions $redirectStrategyOptions,
-        private RouterInterface                  $router,
-        private ResponseFactoryInterface         $responseFactory,
+        private readonly RedirectStrategyOptions  $redirectStrategyOptions,
+        private readonly RouterInterface          $router,
+        private readonly ResponseFactoryInterface $responseFactory,
     ) {
     }
 

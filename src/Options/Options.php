@@ -35,6 +35,8 @@ class Options extends AbstractOptions
      */
     protected ?RedirectStrategyOptions $redirectStrategyOptions = null;
 
+    protected array $strategies = [];
+
     public function getGuards(): array
     {
         return $this->guards;
@@ -101,6 +103,16 @@ class Options extends AbstractOptions
         }
 
         return $this->redirectStrategyOptions;
+    }
+
+    public function setStrategies(array $strategies): void
+    {
+        $this->strategies = $strategies;
+    }
+
+    public function getStrategies(): array
+    {
+        return $this->strategies;
     }
 
 }

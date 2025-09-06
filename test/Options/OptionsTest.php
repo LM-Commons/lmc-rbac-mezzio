@@ -23,6 +23,7 @@ class OptionsTest extends TestCase
 
         $this->assertEquals(GuardInterface::POLICY_ALLOW, $options->getProtectionPolicy());
         $this->assertIsArray($options->getGuards());
+        $this->assertIsArray($options->getStrategies());
         $this->assertInstanceOf(UnauthorizedStrategyOptions::class, $options->getUnauthorizedStrategyOptions());
         $this->assertInstanceOf(RedirectStrategyOptions::class, $options->getRedirectStrategyOptions());
     }
@@ -31,6 +32,7 @@ class OptionsTest extends TestCase
     {
         $options = new Options([
             'guards'                => [],
+            'strategies'            => [],
             'protection_policy'     => 'deny',
             'unauthorized_strategy_options' => [
                 'template' => 'error/unauthorized',
@@ -42,6 +44,7 @@ class OptionsTest extends TestCase
         ]);
 
         $this->assertEquals([], $options->getGuards());
+        $this->assertEquals([], $options->getStrategies());
         $this->assertEquals('deny', $options->getProtectionPolicy());
         $this->assertInstanceOf(UnauthorizedStrategyOptions::class, $options->getUnauthorizedStrategyOptions());
         $this->assertInstanceOf(RedirectStrategyOptions::class, $options->getRedirectStrategyOptions());

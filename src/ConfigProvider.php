@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio;
 
+use Lmc\Rbac\Mezzio\Middleware\GuardMiddlewareDelegatorFactory;
+use Lmc\Rbac\Mezzio\Middleware\RouteGuardMiddleware;
+use Lmc\Rbac\Mezzio\Strategy\RedirectStrategy;
+use Lmc\Rbac\Mezzio\Strategy\RedirectStrategyFactory;
+
 final class ConfigProvider
 {
     public function __invoke(): array
@@ -22,7 +27,13 @@ final class ConfigProvider
                 Guard\RouteGuard::class                => Guard\RouteGuardFactory::class,
                 Service\RoleService::class             => Service\RoleServiceFactory::class,
                 Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
+                RedirectStrategy::class                => RedirectStrategyFactory::class,
             ],
+            'abstract_factories' => [
+                RouteGuardMiddleware::class => [
+                    GuardMiddlewareDelegatorFactory::class,
+                ]
+            ]
         ];
     }
 
