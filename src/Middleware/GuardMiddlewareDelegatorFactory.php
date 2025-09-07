@@ -24,15 +24,14 @@ class GuardMiddlewareDelegatorFactory implements DelegatorFactoryInterface
         $options         = $container->get(Options::class);
         $strategies = $options->getStrategies();
 
-        /**
-         * @var int $priority
-         */
-        foreach ($strategies as $priority => $strategy) {
-            if (is_array($strategy)) {
-                $class = key($strategy);
-                $strategy = $container->get($class);
-            } elseif (is_string($strategy)) {
-                $strategy = $container->get($strategy);
+        $priority = 0;
+        foreach ($strategies as $classOrKey => $classOrOptions) {
+            if (is_int($classOrKey)) {
+                $strategy = $container->get($classOrOptions);
+                $priority = $classOrKey;
+            } elseif (is_string($classOrKey)) {
+                $strategy = $container->get($classOrKey);
+                $priority++;
             } else {
                 throw new ServiceNotCreatedException('Invalid strategy provided');
             }

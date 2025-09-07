@@ -34,16 +34,14 @@ class RedirectStrategy extends AbstractStrategy
             } else {
                 $redirectRoute = $this->redirectStrategyOptions->getRedirectToRouteDisconnected();
             }
+            $uri = $this->router->generateUri($redirectRoute);
             if ($this->redirectStrategyOptions->getAppendPreviousUri()) {
-                $uri = $this->router->generateUri($redirectRoute [], [
-                    'query' => [
-                        $this->redirectStrategyOptions->getPreviousUriQueryKey() => $request->getUri(),
-                    ]
-                ]);
-            } else {
-                $uri = $this->router->generateUri($redirectRoute []);
+                $uri .= sprintf(
+                    '?%s=%s',
+                    $this->redirectStrategyOptions->getPreviousUriQueryKey(),
+                    (string)$request->getUri()
+                );
             }
-
             return $this->responseFactory
                 ->createResponse(302)
                 ->withHeader('Location', $uri);
