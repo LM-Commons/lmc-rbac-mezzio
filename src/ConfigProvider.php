@@ -45,7 +45,7 @@ final class ConfigProvider
     {
         return [
             'paths' => [
-                'error' => [__DIR__ . '/../templates/lmcrbac'],
+                'error' => [__DIR__ . '/../templates/lmcrbac/error'],
             ],
         ];
     }
