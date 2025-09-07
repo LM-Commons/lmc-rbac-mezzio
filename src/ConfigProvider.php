@@ -8,6 +8,8 @@ use Lmc\Rbac\Mezzio\Middleware\GuardMiddlewareDelegatorFactory;
 use Lmc\Rbac\Mezzio\Middleware\RouteGuardMiddleware;
 use Lmc\Rbac\Mezzio\Strategy\RedirectStrategy;
 use Lmc\Rbac\Mezzio\Strategy\RedirectStrategyFactory;
+use Lmc\Rbac\Mezzio\Strategy\UnauthorizedStrategy;
+use Lmc\Rbac\Mezzio\Strategy\UnauthorizedStrategyFactory;
 
 final class ConfigProvider
 {
@@ -15,6 +17,7 @@ final class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
+            'templates'    => $this->getTemplates(),
             'lmc_rbac'     => $this->getConfig(),
         ];
     }
@@ -28,12 +31,22 @@ final class ConfigProvider
                 Service\RoleService::class             => Service\RoleServiceFactory::class,
                 Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
                 RedirectStrategy::class                => RedirectStrategyFactory::class,
+                UnauthorizedStrategy::class            => UnauthorizedStrategyFactory::class,
             ],
             'delegators' => [
                 RouteGuardMiddleware::class => [
                     GuardMiddlewareDelegatorFactory::class,
                 ]
             ]
+        ];
+    }
+
+    public function getTemplates(): array
+    {
+        return [
+            'paths' => [
+                'error' => [__DIR__ . '/../templates/lmcrbac'],
+            ],
         ];
     }
 

@@ -36,7 +36,7 @@ use Psr\Http\Message\ServerRequestInterface;
 interface GuardInterface
 {
     /**
-     * Constant for guard that can be added to the MVC event result
+     * Constant for guard that can be added to the event result
      */
     public const GUARD_UNAUTHORIZED = 'guard-unauthorized';
 
