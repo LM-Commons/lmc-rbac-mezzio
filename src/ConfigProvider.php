@@ -29,7 +29,7 @@ final class ConfigProvider
                 Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
                 RedirectStrategy::class                => RedirectStrategyFactory::class,
             ],
-            'delegator_factories' => [
+            'delegators' => [
                 RouteGuardMiddleware::class => [
                     GuardMiddlewareDelegatorFactory::class,
                 ]
