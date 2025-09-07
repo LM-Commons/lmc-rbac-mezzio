@@ -30,11 +30,12 @@ class RouteGuardMiddleware extends AbstractGuard implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $results = $this->getEventManager()->trigger(
+        $results = $this->getEventManager()->triggerUntil(function (null|ResponseInterface $result) {
+                return $result instanceof ResponseInterface;
+        },
             self::EVENT_NAME,
             $this,
-            ['request' => $request]
-        );
+            ['request' => $request]);
         if ($results->last() instanceof ResponseInterface) {
             return $results->last();
         }
