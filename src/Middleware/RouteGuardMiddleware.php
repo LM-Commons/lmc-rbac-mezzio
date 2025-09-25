@@ -7,6 +7,7 @@ namespace Lmc\Rbac\Mezzio\Middleware;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
+use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -25,6 +26,18 @@ class RouteGuardMiddleware extends AbstractGuard implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
+        /** @var RouteResult $routeResult */
+        $routeResult = $request->getAttribute(RouteResult::class);
+        if (null === $routeResult) {
+            // do nothing
+            return $handler->handle($request);
+        }
+        $matchedRouteName = $routeResult->getMatchedRouteName();
+        if (false === $matchedRouteName) {
+            // Do nothing, route not found
+            return $handler->handle($request);
+        }
+
         $granted = $this->routeGuard->isGranted($request);
         if ($granted) {
             return $handler->handle($request);
