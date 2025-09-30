@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio\Guard;
 
-use Lmc\Authentication\UserInterface;
+//use Lmc\Authentication\UserInterface;
 use Lmc\Rbac\Identity\IdentityInterface;
 use Lmc\Rbac\Mezzio\Service\RoleService;
+use Mezzio\Authentication\UserInterface;
 use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ServerRequestInterface;
 

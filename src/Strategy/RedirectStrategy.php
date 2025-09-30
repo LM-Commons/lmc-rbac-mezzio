@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Lmc\Rbac\Mezzio\Strategy;
 
 use Laminas\EventManager\Event;
-use Lmc\Authentication\UserInterface;
+//use Lmc\Authentication\UserInterface;
 use Lmc\Rbac\Mezzio\Options\RedirectStrategyOptions;
+use Mezzio\Authentication\UserInterface;
 use Mezzio\Router\RouterInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
