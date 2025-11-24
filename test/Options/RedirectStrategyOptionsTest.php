@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RedirectStrategyOptions::class)]
-class RedirectStrategyOptionsTest extends TestCase
+final class RedirectStrategyOptionsTest extends TestCase
 {
     public function testAssertDefaultValues(): void
     {

@@ -7,7 +7,7 @@ namespace Lmc\Rbac\Mezzio\Strategy;
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\Event;
 use Laminas\EventManager\EventManagerInterface;
-use Lmc\Rbac\Mezzio\Middleware\AbstractGuard;
+use Lmc\Rbac\Mezzio\Middleware\AbstractGuardMiddleware;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractStrategy extends AbstractListenerAggregate
@@ -17,7 +17,7 @@ abstract class AbstractStrategy extends AbstractListenerAggregate
      */
     public function attach(EventManagerInterface $events, $priority = 1): void
     {
-        $this->listeners[] = $events->attach(AbstractGuard::EVENT_NAME, [$this, 'onUnAuthorized'], $priority);
+        $this->listeners[] = $events->attach(AbstractGuardMiddleware::EVENT_NAME, [$this, 'onUnAuthorized'], $priority);
     }
 
     abstract public function onUnAuthorized(Event $event): null|ResponseInterface;

@@ -9,7 +9,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(UnauthorizedStrategyOptions::class)]
-class UnauthorizedStrategyOptionsTest extends TestCase
+final class UnauthorizedStrategyOptionsTest extends TestCase
 {
     public function testAssertDefaultValues(): void
     {

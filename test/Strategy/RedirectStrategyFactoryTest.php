@@ -13,12 +13,12 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 
 #[CoversClass(RedirectStrategyFactory::class)]
-class RedirectStrategyFactoryTest extends TestCase
+final class RedirectStrategyFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {
         $container = $this->createMock(ContainerInterface::class);
-        $options = new Options();
+        $options   = new Options();
         $container->expects($this->exactly(3))->method('get')
             ->willReturnMap([
                 [Options::class, $options],

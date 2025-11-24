@@ -7,6 +7,7 @@ namespace Lmc\Rbac\Mezzio\Service;
 use Laminas\Permissions\Rbac\RoleInterface;
 use Lmc\Rbac\Mezzio\Role\TraversalStrategyInterface;
 use Lmc\Rbac\Service\RoleServiceInterface as RbacRoleServiceInterface;
+use Override;
 
 use function array_intersect;
 use function array_unique;
@@ -15,12 +16,12 @@ use function count;
 final class RoleService implements RoleServiceInterface
 {
     public function __construct(
-        private readonly RbacRoleServiceInterface   $rbacRoleService,
+        private readonly RbacRoleServiceInterface $rbacRoleService,
         private readonly TraversalStrategyInterface $traversalStrategy,
     ) {
     }
 
-    #[\Override]
+    #[Override]
     public function getIdentityRoles(object|null $identity = null): array
     {
         return $this->rbacRoleService->getIdentityRoles($identity);

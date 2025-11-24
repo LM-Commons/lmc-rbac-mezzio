@@ -6,10 +6,16 @@ namespace Lmc\Rbac\Mezzio\Guard;
 
 use Lmc\Rbac\Mezzio\Options\Options;
 use Lmc\Rbac\Mezzio\Service\RoleServiceInterface;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class RouteGuardFactory
 {
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __invoke(ContainerInterface $container): GuardInterface
     {
         /** @var Options $options */

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lmc\Rbac\Mezzio\Service;
 
 use Lmc\Rbac\Service\RoleServiceInterface as BaseRoleServiceInterface;

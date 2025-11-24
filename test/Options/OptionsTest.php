@@ -14,7 +14,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Options::class)]
-class OptionsTest extends TestCase
+final class OptionsTest extends TestCase
 {
     public function testAssertModuleDefaultOptions(): void
     {

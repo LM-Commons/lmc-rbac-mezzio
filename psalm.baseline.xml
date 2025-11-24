@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+  <file src="src/ConfigProvider.php">
+    <MixedArrayOffset>
+      <code><![CDATA[[
+                RouteGuardMiddleware::class => [
+                    GuardMiddlewareDelegatorFactory::class,
+                ],
+            ]]]></code>
+    </MixedArrayOffset>
+    <UndefinedClass>
+      <code><![CDATA[RouteGuardMiddleware]]></code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Guard/RouteGuard.php">
+    <MixedArrayOffset>
+      <code><![CDATA[$this->rules[$routeRegex]]]></code>
+    </MixedArrayOffset>
+    <MixedAssignment>
+      <code><![CDATA[$routeRegex]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Guard/RouteGuardFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RouteGuardFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(RoleServiceInterface::class)]]></code>
+    </MixedArgument>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[GuardInterface]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Middleware/GuardMiddlewareDelegatorFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[GuardMiddlewareDelegatorFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$classOrOptions]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$classOrOptions]]></code>
+    </MixedAssignment>
+    <PossiblyUnusedParam>
+      <code><![CDATA[$name]]></code>
+      <code><![CDATA[$options]]></code>
+    </PossiblyUnusedParam>
+  </file>
+  <file src="src/Middleware/RouteGuardMiddleware.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RouteGuardMiddleware]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface]]></code>
+    </MissingOverrideAttribute>
+    <MixedReturnStatement>
+      <code><![CDATA[$results->last()]]></code>
+    </MixedReturnStatement>
+    <PropertyNotSetInConstructor>
+      <code><![CDATA[RouteGuardMiddleware]]></code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Middleware/RouteGuardMiddlewareFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RouteGuardMiddlewareFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(RouteGuard::class)]]></code>
+    </MixedArgument>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[MiddlewareInterface]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Options/Options.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Options]]></code>
+    </ClassMustBeFinal>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setRedirectStrategyOptions]]></code>
+      <code><![CDATA[setUnauthorizedStrategyOptions]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Options/OptionsFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[OptionsFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$config['lmc_rbac']]]></code>
+    </MixedArgument>
+  </file>
+  <file src="src/Options/RedirectStrategyOptions.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RedirectStrategyOptions]]></code>
+    </ClassMustBeFinal>
+  </file>
+  <file src="src/Options/UnauthorizedStrategyOptions.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[UnauthorizedStrategyOptions]]></code>
+    </ClassMustBeFinal>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setTemplate]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Role/RecursiveRoleIterator.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RecursiveRoleIterator]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getChildren(): ?RecursiveRoleIterator]]></code>
+      <code><![CDATA[public function hasChildren(): bool]]></code>
+      <code><![CDATA[public function valid(): bool]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[RecursiveIterator]]></code>
+      <code><![CDATA[RecursiveRoleIterator]]></code>
+    </MissingTemplateParam>
+    <MixedArgument>
+      <code><![CDATA[$this->current()->getChildren()]]></code>
+    </MixedArgument>
+    <MixedMethodCall>
+      <code><![CDATA[getChildren]]></code>
+    </MixedMethodCall>
+  </file>
+  <file src="src/Role/RecursiveRoleIteratorStrategy.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RecursiveRoleIteratorStrategy]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getRolesIterator(iterable $roles): Traversable]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Service/RoleService.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function matchIdentityRoles(object|null $identity = null, array $roles = []): bool]]></code>
+    </MissingOverrideAttribute>
+    <MixedAssignment>
+      <code><![CDATA[$role]]></code>
+      <code><![CDATA[$role]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Service/RoleServiceFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RoleServiceFactory]]></code>
+    </ClassMustBeFinal>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[RoleService]]></code>
+    </PossiblyUnusedReturnValue>
+    <UnusedVariable>
+      <code><![CDATA[$options]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Strategy/AbstractStrategy.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function attach(EventManagerInterface $events, $priority = 1): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Strategy/RedirectStrategy.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RedirectStrategy]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function onUnAuthorized(Event $event): null|ResponseInterface]]></code>
+    </MissingOverrideAttribute>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[getAttribute]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/Strategy/RedirectStrategyFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[RedirectStrategyFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(ResponseFactoryInterface::class)]]></code>
+      <code><![CDATA[$container->get(RouterInterface::class)]]></code>
+      <code><![CDATA[$options]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$options]]></code>
+    </MixedAssignment>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[RedirectStrategy]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Strategy/UnauthorizedStrategy.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[UnauthorizedStrategy]]></code>
+    </ClassMustBeFinal>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function onUnAuthorized(Event $event): null|ResponseInterface]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="src/Strategy/UnauthorizedStrategyFactory.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[UnauthorizedStrategyFactory]]></code>
+    </ClassMustBeFinal>
+    <MixedArgument>
+      <code><![CDATA[$container->get(TemplateRendererInterface::class)]]></code>
+      <code><![CDATA[$options]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$options]]></code>
+    </MixedAssignment>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[UnauthorizedStrategy]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="test/Assets/TestTraversableRoles.php">
+    <MissingTemplateParam>
+      <code><![CDATA[Iterator]]></code>
+    </MissingTemplateParam>
+  </file>
+  <file src="test/Guard/RouteGuardTest.php">
+    <PossiblyInvalidArgument>
+      <code><![CDATA[testRulesRouteGuard]]></code>
+      <code><![CDATA[testRulesRouteGuard]]></code>
+      <code><![CDATA[testRulesRouteGuard]]></code>
+      <code><![CDATA[testRulesRouteGuard]]></code>
+      <code><![CDATA[testRulesRouteGuard]]></code>
+    </PossiblyInvalidArgument>
+  </file>
+  <file src="test/Service/RoleServiceTest.php">
+    <PossiblyInvalidArgument>
+      <code><![CDATA[testMatchIdentityRoles]]></code>
+      <code><![CDATA[testMatchIdentityRoles]]></code>
+      <code><![CDATA[testMatchIdentityRoles]]></code>
+      <code><![CDATA[testMatchIdentityRoles]]></code>
+    </PossiblyInvalidArgument>
+  </file>
+</files>

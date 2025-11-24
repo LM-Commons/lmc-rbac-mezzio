@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace LmcTest\Rbac\Mezzio\Options;
 
-use Lmc\Rbac\Mezzio\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\ServiceManager;
+use Lmc\Rbac\Mezzio\Exception\ServiceNotCreatedException;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
-use Lmc\Rbac\Mezzio\Options\Options;
 use Lmc\Rbac\Mezzio\Options\OptionsFactory;
 use Lmc\Rbac\Mezzio\Options\RedirectStrategyOptions;
 use Lmc\Rbac\Mezzio\Options\UnauthorizedStrategyOptions;
@@ -18,7 +17,7 @@ use Psr\Container\ContainerExceptionInterface;
 use function count;
 
 #[CoversClass(OptionsFactory::class)]
-class OptionsFactoryTest extends TestCase
+final class OptionsFactoryTest extends TestCase
 {
     /**
      * @throws ContainerExceptionInterface
@@ -51,6 +50,6 @@ class OptionsFactoryTest extends TestCase
 
         $this->expectException(ServiceNotCreatedException::class);
         $factory = new OptionsFactory();
-        $options = $factory($serviceManager, Options::class);
+        $factory($serviceManager);
     }
 }

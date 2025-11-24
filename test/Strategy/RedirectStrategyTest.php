@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace LmcTest\Rbac\Mezzio\Strategy;
 
-use Couchbase\User;
 use Laminas\EventManager\Event;
 use Lmc\Rbac\Mezzio\Options\RedirectStrategyOptions;
 use Lmc\Rbac\Mezzio\Strategy\RedirectStrategy;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Router\RouterInterface;
+use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -19,9 +19,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 
 #[CoversClass(RedirectStrategy::class)]
-class RedirectStrategyTest extends TestCase
+final class RedirectStrategyTest extends TestCase
 {
-    /** @var RedirectStrategyOptions  */
     protected RedirectStrategyOptions $options;
 
     /** @var RouterInterface&MockObject  */
@@ -32,14 +31,14 @@ class RedirectStrategyTest extends TestCase
 
     protected RedirectStrategy $strategy;
 
-    #[\Override]
+    #[Override]
     public function setUp(): void
     {
         parent::setUp();
-        $this->options = new RedirectStrategyOptions();
-        $this->router = $this->createMock(RouterInterface::class);
+        $this->options         = new RedirectStrategyOptions();
+        $this->router          = $this->createMock(RouterInterface::class);
         $this->responseFactory = $this->createMock(ResponseFactoryInterface::class);
-        $this->strategy = new RedirectStrategy(
+        $this->strategy        = new RedirectStrategy(
             $this->options,
             $this->router,
             $this->responseFactory
@@ -54,7 +53,7 @@ class RedirectStrategyTest extends TestCase
 
     public function testAuthenticatedUserNoRedirectWhenConnected(): void
     {
-        $event = new Event();
+        $event   = new Event();
         $request = $this->createMock(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
@@ -68,7 +67,7 @@ class RedirectStrategyTest extends TestCase
 
     public function testAuthenticatedUserRedirectWhenConnected(): void
     {
-        $event = new Event();
+        $event   = new Event();
         $request = $this->createMock(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
@@ -98,7 +97,7 @@ class RedirectStrategyTest extends TestCase
 
     public function testNoAuthenticatedUser(): void
     {
-        $event = new Event();
+        $event   = new Event();
         $request = $this->createMock(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
@@ -127,7 +126,7 @@ class RedirectStrategyTest extends TestCase
 
     public function testAppendPreviousUri(): void
     {
-        $event = new Event();
+        $event   = new Event();
         $request = $this->createMock(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
