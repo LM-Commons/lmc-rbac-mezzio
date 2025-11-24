@@ -8,6 +8,7 @@ use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Unauthorized strategy options
+ *
  * @template TValue
  * @extends AbstractOptions<TValue>
  */

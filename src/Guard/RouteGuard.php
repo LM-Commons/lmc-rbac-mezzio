@@ -4,12 +4,17 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio\Guard;
 
-//use Lmc\Authentication\UserInterface;
-use Lmc\Rbac\Identity\IdentityInterface;
-use Lmc\Rbac\Mezzio\Service\RoleService;
+use Lmc\Rbac\Mezzio\Service\RoleServiceInterface;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ServerRequestInterface;
+
+use function array_keys;
+use function fnmatch;
+use function in_array;
+use function is_int;
+
+use const FNM_CASEFOLD;
 
 class RouteGuard extends AbstractGuard
 {
@@ -18,7 +23,7 @@ class RouteGuard extends AbstractGuard
     protected array $rules = [];
 
     public function __construct(
-        private readonly RoleService $roleService,
+        private readonly RoleServiceInterface $roleService,
         array $rules = [],
         string $protectionPolicy = GuardInterface::POLICY_ALLOW
     ) {
@@ -29,9 +34,10 @@ class RouteGuard extends AbstractGuard
     public function isGranted(ServerRequestInterface $request): bool
     {
         /** @var RouteResult $routeResult */
-        $routeResult = $request->getAttribute(RouteResult::class);
+        $routeResult      = $request->getAttribute(RouteResult::class);
         $matchedRouteName = $routeResult->getMatchedRouteName();
-        $allowedRoles = null;
+        /** @var null|array $allowedRoles */
+        $allowedRoles     = null;
 
         foreach (array_keys($this->rules) as $routeRule) {
             if (fnmatch($routeRule, $matchedRouteName, FNM_CASEFOLD)) {
@@ -44,7 +50,6 @@ class RouteGuard extends AbstractGuard
             return $this->protectionPolicy === GuardInterface::POLICY_ALLOW;
         }
 
-        /** @var array $allowedRoles */
         if (in_array('*', $allowedRoles)) {
             return true;
         }

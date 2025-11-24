@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio\Options;
 
-use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
-use Laminas\ServiceManager\Factory\FactoryInterface;
+use Lmc\Rbac\Mezzio\Exception\ServiceNotCreatedException;
 use Psr\Container\ContainerInterface;
 
-class OptionsFactory implements FactoryInterface
+class OptionsFactory
 {
-
-    /**
-     * @inheritDoc
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): Options
+    public function __invoke(ContainerInterface $container): Options
     {
         /** @var array $config */
         $config = $container->get('config');

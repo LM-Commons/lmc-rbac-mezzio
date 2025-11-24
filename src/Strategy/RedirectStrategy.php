@@ -13,11 +13,13 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 
+use function sprintf;
+
 class RedirectStrategy extends AbstractStrategy
 {
     public function __construct(
-        private readonly RedirectStrategyOptions  $redirectStrategyOptions,
-        private readonly RouterInterface          $router,
+        private readonly RedirectStrategyOptions $redirectStrategyOptions,
+        private readonly RouterInterface $router,
         private readonly ResponseFactoryInterface $responseFactory,
     ) {
     }
@@ -40,7 +42,7 @@ class RedirectStrategy extends AbstractStrategy
                 $uri .= sprintf(
                     '?%s=%s',
                     $this->redirectStrategyOptions->getPreviousUriQueryKey(),
-                    (string)$request->getUri()
+                    (string) $request->getUri()
                 );
             }
             return $this->responseFactory

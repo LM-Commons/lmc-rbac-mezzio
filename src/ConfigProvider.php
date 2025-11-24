@@ -25,19 +25,19 @@ final class ConfigProvider
     public function getDependencies(): array
     {
         return [
-            'factories' => [
-                Options\Options::class                 => Options\OptionsFactory::class,
-                Guard\RouteGuard::class                => Guard\RouteGuardFactory::class,
-                Service\RoleService::class             => Service\RoleServiceFactory::class,
-                Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
-                RedirectStrategy::class                => RedirectStrategyFactory::class,
-                UnauthorizedStrategy::class            => UnauthorizedStrategyFactory::class,
+            'factories'  => [
+                Options\Options::class      => Options\OptionsFactory::class,
+                Guard\RouteGuard::class     => Guard\RouteGuardFactory::class,
+                Service\RoleService::class  => Service\RoleServiceFactory::class,
+                RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
+                RedirectStrategy::class     => RedirectStrategyFactory::class,
+                UnauthorizedStrategy::class => UnauthorizedStrategyFactory::class,
             ],
             'delegators' => [
                 RouteGuardMiddleware::class => [
                     GuardMiddlewareDelegatorFactory::class,
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
@@ -52,7 +52,6 @@ final class ConfigProvider
 
     public function getConfig(): array
     {
-        return [
-        ];
+        return [];
     }
 }

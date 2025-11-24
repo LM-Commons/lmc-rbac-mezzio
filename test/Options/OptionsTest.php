@@ -31,9 +31,9 @@ class OptionsTest extends TestCase
     public function testSettersAndGetters(): void
     {
         $options = new Options([
-            'guards'                => [],
-            'strategies'            => [],
-            'protection_policy'     => 'deny',
+            'guards'                        => [],
+            'strategies'                    => [],
+            'protection_policy'             => 'deny',
             'unauthorized_strategy_options' => [
                 'template' => 'error/unauthorized',
             ],

@@ -4,25 +4,21 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio\Guard;
 
-use Laminas\ServiceManager\Factory\FactoryInterface;
 use Lmc\Rbac\Mezzio\Options\Options;
-use Lmc\Rbac\Mezzio\Service\RoleService;
+use Lmc\Rbac\Mezzio\Service\RoleServiceInterface;
 use Psr\Container\ContainerInterface;
 
-class RouteGuardFactory implements FactoryInterface
+class RouteGuardFactory
 {
-
-    /**
-     * @inheritDoc
-     */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): GuardInterface
+    public function __invoke(ContainerInterface $container): GuardInterface
     {
         /** @var Options $options */
         $options = $container->get(Options::class);
-        $guards = $options->getGuards();
+        $guards  = $options->getGuards();
+        /** @var array $rules */
         $rules = $guards[RouteGuard::class] ?? [];
         return new RouteGuard(
-            $container->get(RoleService::class),
+            $container->get(RoleServiceInterface::class),
             $rules,
             $options->getProtectionPolicy()
         );

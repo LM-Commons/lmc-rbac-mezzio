@@ -12,7 +12,6 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractStrategy extends AbstractListenerAggregate
 {
-
     /**
      * @inheritDoc
      */

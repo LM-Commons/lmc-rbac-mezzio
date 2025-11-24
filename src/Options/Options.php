@@ -8,6 +8,8 @@ use Laminas\Stdlib\AbstractOptions;
 use Lmc\Rbac\Mezzio\Exception\InvalidProtectionPolicyException;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
 
+use function sprintf;
+
 /**
  * @template TValue
  * @extends AbstractOptions<TValue>
@@ -15,6 +17,7 @@ use Lmc\Rbac\Mezzio\Guard\GuardInterface;
 class Options extends AbstractOptions
 {
     // phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore,WebimpressCodingStandard.NamingConventions.ValidVariableName.NotCamelCapsProperty
+    /** @var bool $__strictMode__ */
     protected $__strictMode__ = false;
     // phpcs: enable
 
@@ -65,7 +68,6 @@ class Options extends AbstractOptions
 
     /**
      * @param iterable<string, TValue> $unauthorizedStrategyOptions
-     * @return void
      */
     public function setUnauthorizedStrategyOptions(array $unauthorizedStrategyOptions): void
     {
@@ -86,6 +88,7 @@ class Options extends AbstractOptions
 
     /**
      * Set the redirect strategy options
+     *
      * @param iterable<string, TValue> $redirectStrategyOptions
      */
     public function setRedirectStrategyOptions(array $redirectStrategyOptions): void
@@ -114,5 +117,4 @@ class Options extends AbstractOptions
     {
         return $this->strategies;
     }
-
 }

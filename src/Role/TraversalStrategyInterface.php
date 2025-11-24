@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Lmc\Rbac\Mezzio\Role;
 
 use Laminas\Permissions\Rbac\RoleInterface;
@@ -9,7 +11,6 @@ interface TraversalStrategyInterface
 {
     /**
      * @param Traversable|RoleInterface[] $roles
-     * @return Traversable
      */
     public function getRolesIterator(iterable $roles): Traversable;
 }

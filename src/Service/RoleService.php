@@ -6,16 +6,21 @@ namespace Lmc\Rbac\Mezzio\Service;
 
 use Laminas\Permissions\Rbac\RoleInterface;
 use Lmc\Rbac\Mezzio\Role\TraversalStrategyInterface;
-use Lmc\Rbac\Service\RoleServiceInterface;
+use Lmc\Rbac\Service\RoleServiceInterface as RbacRoleServiceInterface;
 
-readonly class RoleService
+use function array_intersect;
+use function array_unique;
+use function count;
+
+final class RoleService implements RoleServiceInterface
 {
     public function __construct(
-        private RoleServiceInterface       $rbacRoleService,
-        private TraversalStrategyInterface $traversalStrategy,
+        private readonly RbacRoleServiceInterface   $rbacRoleService,
+        private readonly TraversalStrategyInterface $traversalStrategy,
     ) {
     }
 
+    #[\Override]
     public function getIdentityRoles(object|null $identity = null): array
     {
         return $this->rbacRoleService->getIdentityRoles($identity);
@@ -37,7 +42,7 @@ readonly class RoleService
 
         $identityRoles = $this->flattenRoles($identityRoles);
 
-        return count(array_intersect($roleNames, $identityRoles)) >0;
+        return count(array_intersect($roleNames, $identityRoles)) > 0;
     }
 
     /**
@@ -47,7 +52,7 @@ readonly class RoleService
     protected function flattenRoles(array $roles): array
     {
         $roleNames = [];
-        $iterator = $this->traversalStrategy->getRolesIterator($roles);
+        $iterator  = $this->traversalStrategy->getRolesIterator($roles);
         foreach ($iterator as $role) {
             $roleNames[] = $role instanceof RoleInterface ? $role->getName() : (string) $role;
         }
