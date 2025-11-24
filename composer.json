@@ -17,10 +17,10 @@
     }
   },
   "require": {
-    "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+    "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
     "laminas/laminas-diactoros": "^3.1",
     "laminas/laminas-eventmanager": "^3.14",
-    "lm-commons/lmc-rbac": "2.2.x-dev",
+    "lm-commons/lmc-rbac": "^2.2",
     "mezzio/mezzio-authentication": "^1.11",
     "mezzio/mezzio-router": "^3.7",
     "mezzio/mezzio-template": "^2.1"
@@ -57,15 +57,5 @@
     "cs-fix": "phpcbf",
     "test-coverage-html": "phpunit --coverage-html ./build/html",
     "static-analysis": "psalm --shepherd --stats"
-  },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "c:/lm-commons/LmcRbac"
-    },
-    {
-      "type": "git",
-      "url": "c:/lm-commons/lmc-authentication"
-    }
-  ]
+  }
 }
