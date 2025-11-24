@@ -14,9 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 
 #[CoversClass(UnauthorizedStrategy::class)]
-class UnauthorizedStrategyTest extends TestCase
+final class UnauthorizedStrategyTest extends TestCase
 {
-
     public function testNoRequestInEvent(): void
     {
         $options = new UnauthorizedStrategyOptions();
@@ -25,7 +24,7 @@ class UnauthorizedStrategyTest extends TestCase
             $options,
             $this->createMock(TemplateRendererInterface::class)
         );
-        $event = new Event();
+        $event                = new Event();
         self::assertEquals(null, $unauthorizedStrategy->onUnAuthorized($event));
     }
 
@@ -35,17 +34,15 @@ class UnauthorizedStrategyTest extends TestCase
 
         $renderer = $this->createMock(TemplateRendererInterface::class);
         $renderer->expects($this->once())->method('render')
-            ->with('error::403')
-            ->willReturn('foo');
+        ->with('error::403')
+        ->willReturn('foo');
 
         $unauthorizedStrategy = new UnauthorizedStrategy(
             $options,
             $renderer
         );
-        $event = new Event();
+        $event                = new Event();
         $event->setParam('request', $this->createMock(RequestInterface::class));
         self::assertInstanceOf(HtmlResponse::class, $unauthorizedStrategy->onUnAuthorized($event));
-
     }
-
 }

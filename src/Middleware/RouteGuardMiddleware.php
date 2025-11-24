@@ -11,7 +11,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class RouteGuardMiddleware extends AbstractGuard implements MiddlewareInterface
+class RouteGuardMiddleware extends AbstractGuardMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private readonly GuardInterface $routeGuard,
@@ -23,7 +23,7 @@ class RouteGuardMiddleware extends AbstractGuard implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        /** @var RouteResult $routeResult */
+        /** @var null|RouteResult $routeResult */
         $routeResult = $request->getAttribute(RouteResult::class);
         if (null === $routeResult) {
             // do nothing

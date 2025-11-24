@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Traversable;
 
 #[CoversClass(RecursiveRoleIteratorStrategy::class)]
-class RecursiveRoleIteratorStrategyTest extends TestCase
+final class RecursiveRoleIteratorStrategyTest extends TestCase
 {
     public function testGetRecursiveRoleIterator(): void
     {

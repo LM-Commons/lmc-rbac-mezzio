@@ -6,6 +6,6 @@ namespace Lmc\Rbac\Mezzio\Exception;
 
 use RuntimeException;
 
-class InvalidProtectionPolicyException extends RuntimeException implements ExceptionInterface
+final class InvalidProtectionPolicyException extends RuntimeException implements ExceptionInterface
 {
 }

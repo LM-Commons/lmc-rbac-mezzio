@@ -9,6 +9,7 @@ use Lmc\Rbac\Mezzio\Guard\RouteGuard;
 use Lmc\Rbac\Mezzio\Middleware\RouteGuardMiddleware;
 use LmcTest\Rbac\Mezzio\Assets\TestStrategy;
 use Mezzio\Router\RouteResult;
+use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -17,16 +18,15 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 #[CoversClass(RouteGuardMiddleware::class)]
-class RouteGuardTest extends TestCase
+final class RouteGuardTest extends TestCase
 {
-
     /** @var ServerRequestInterface&MockObject */
     protected ServerRequestInterface $request;
 
     /** @var RequestHandlerInterface&MockObject */
     protected RequestHandlerInterface $handler;
 
-    #[\Override]
+    #[Override]
     public function setUp(): void
     {
         parent::setUp();
@@ -141,5 +141,4 @@ class RouteGuardTest extends TestCase
 
         self::assertInstanceOf(ResponseInterface::class, $middleware->process($this->request, $this->handler));
     }
-
 }

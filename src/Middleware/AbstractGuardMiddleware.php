@@ -7,7 +7,7 @@ namespace Lmc\Rbac\Mezzio\Middleware;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerAwareTrait;
 
-abstract class AbstractGuard implements EventManagerAwareInterface
+abstract class AbstractGuardMiddleware implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
 

@@ -6,6 +6,6 @@ namespace Lmc\Rbac\Mezzio\Exception;
 
 use RuntimeException;
 
-class ServiceNotCreatedException extends RuntimeException implements ExceptionInterface
+final class ServiceNotCreatedException extends RuntimeException implements ExceptionInterface
 {
 }

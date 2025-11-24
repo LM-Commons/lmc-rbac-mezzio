@@ -10,12 +10,12 @@ use Lmc\Rbac\Service\RoleServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class RoleServiceFactoryTest extends TestCase
+final class RoleServiceFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {
-        $container = $this->createMock(ContainerInterface::class);
-        $options = $this->createMock(Options::class);
+        $container   = $this->createMock(ContainerInterface::class);
+        $options     = $this->createMock(Options::class);
         $roleService = $this->createMock(RoleServiceInterface::class);
         $container->expects($this->exactly(2))->method('get')
             ->willReturnMap([

@@ -14,7 +14,7 @@ use RecursiveIteratorIterator;
 use stdClass;
 
 #[CoversClass(RecursiveRoleIterator::class)]
-class RecursiveRoleIteratorTest extends TestCase
+final class RecursiveRoleIteratorTest extends TestCase
 {
     public function testIsValid(): void
     {
@@ -37,7 +37,6 @@ class RecursiveRoleIteratorTest extends TestCase
             $this->assertInstanceOf(RoleInterface::class, $role);
         }
     }
-
 
     public function testWithChildren(): void
     {

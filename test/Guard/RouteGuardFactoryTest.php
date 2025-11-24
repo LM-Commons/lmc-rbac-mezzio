@@ -11,7 +11,7 @@ use Lmc\Rbac\Mezzio\Service\RoleServiceInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class RouteGuardFactoryTest extends TestCase
+final class RouteGuardFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {

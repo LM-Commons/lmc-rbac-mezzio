@@ -12,12 +12,12 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
 #[CoversClass(UnauthorizedStrategyFactory::class)]
-class UnauthorizedStrategyFactoryTest extends TestCase
+final class UnauthorizedStrategyFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {
         $container = $this->createMock(ContainerInterface::class);
-        $options = new Options();
+        $options   = new Options();
         $container->expects($this->exactly(2))->method('get')
             ->willReturnMap([
                 [Options::class, $options],

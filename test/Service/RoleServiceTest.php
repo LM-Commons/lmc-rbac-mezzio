@@ -22,20 +22,21 @@ declare(strict_types=1);
 namespace LmcTest\Rbac\Mezzio\Service;
 
 use Laminas\Permissions\Rbac\Role;
-use Lmc\Rbac\Service\RoleService as BaseRoleService;
 use Lmc\Rbac\Identity\IdentityInterface;
 use Lmc\Rbac\Mezzio\Role\RecursiveRoleIteratorStrategy;
-use Lmc\Rbac\Mezzio\Role\TraversalStrategyInterface;
 use Lmc\Rbac\Mezzio\Service\RoleService;
 use Lmc\Rbac\Role\InMemoryRoleProvider;
-use Lmc\Rbac\Role\RoleProviderInterface;
+use Lmc\Rbac\Service\RoleService as BaseRoleService;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(RoleService::class)]
-class RoleServiceTest extends TestCase
+final class RoleServiceTest extends TestCase
 {
+    /**
+     * @return iterable<array-key, array<array-key, mixed>>
+     */
     public static function roleProvider(): array
     {
         return [
@@ -219,7 +220,7 @@ class RoleServiceTest extends TestCase
         $identity->expects($this->any())->method('getRoles')->willReturn($identityRoles);
 
         $roleProvider    = new InMemoryRoleProvider($rolesConfig);
-        $baseRoleService = new \Lmc\Rbac\Service\RoleService($roleProvider, 'guest');
+        $baseRoleService = new BaseRoleService($roleProvider, 'guest');
 
         $roleService = new RoleService($baseRoleService, new RecursiveRoleIteratorStrategy());
 

@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
 #[CoversClass(RouteGuardMiddlewareFactory::class)]
-class RouteGuardMiddlewareFactoryTest extends TestCase
+final class RouteGuardMiddlewareFactoryTest extends TestCase
 {
     public function testInvoke(): void
     {

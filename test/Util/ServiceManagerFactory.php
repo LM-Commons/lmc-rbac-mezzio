@@ -7,7 +7,7 @@ namespace LmcTest\Rbac\Mezzio\Util;
 use Laminas\ServiceManager\ServiceManager;
 use Lmc\Rbac\Mezzio\ConfigProvider;
 
-class ServiceManagerFactory
+final class ServiceManagerFactory
 {
     public static function getServiceManager(): ServiceManager
     {
