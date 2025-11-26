@@ -57,8 +57,8 @@ final class RouteGuardTest extends TestCase
 
         $request->expects($this->any())->method('getAttribute')
             ->willReturnMap([
-                [RouteResult::class, $routeResult],
-                [UserInterface::class, $identity],
+                [RouteResult::class, null, $routeResult],
+                [UserInterface::class, null, $identity],
             ]);
         $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn($routeName);
         $routeGuard = new RouteGuard($roleService, $rules, $policy);
@@ -72,7 +72,7 @@ final class RouteGuardTest extends TestCase
     {
         return [
             'test_no_rules_policy_allowed' => [
-                'routeName' => 'foo',
+                'routeName' =>'foo',
                 'rules'     => [],
                 'roles'     => [],
                 'policy'    => GuardInterface::POLICY_ALLOW,
