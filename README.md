@@ -19,4 +19,3 @@ $ php composer.phar require lm-commons/lmc-rbac-mezzio
 
 Browse the documentation online at
 [LM-Commons](https://lm-commons.github.io/lmc-user-mezzio/).
-
