@@ -72,7 +72,7 @@ final class RouteGuardTest extends TestCase
     {
         return [
             'test_no_rules_policy_allowed' => [
-                'routeName' =>'foo',
+                'routeName' => 'foo',
                 'rules'     => [],
                 'roles'     => [],
                 'policy'    => GuardInterface::POLICY_ALLOW,
