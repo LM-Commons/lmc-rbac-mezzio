@@ -27,13 +27,13 @@ final class ConfigProvider
             'factories'  => [
                 Options\Options::class                 => Options\OptionsFactory::class,
                 Guard\RouteGuard::class                => Guard\RouteGuardFactory::class,
-                Service\RoleService::class             => Service\RoleServiceFactory::class,
+                Service\RoleServiceInterface::class    => Service\RoleServiceFactory::class,
                 Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
                 RedirectStrategy::class                => RedirectStrategyFactory::class,
                 UnauthorizedStrategy::class            => UnauthorizedStrategyFactory::class,
             ],
             'delegators' => [
-                RouteGuardMiddleware::class => [
+                Middleware\RouteGuardMiddleware::class => [
                     GuardMiddlewareDelegatorFactory::class,
                 ],
             ],
