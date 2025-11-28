@@ -14,9 +14,9 @@ use function array_keys;
 use function count;
 use function fnmatch;
 use function in_array;
+use function is_array;
 use function is_int;
-use function PHPUnit\Framework\assertIsArray;
-use function PHPUnit\Framework\assertIsString;
+use function is_string;
 
 use const FNM_CASEFOLD;
 
@@ -46,11 +46,11 @@ class RouteGuard extends AbstractGuard
         $matchedRouteName = $routeResult->getMatchedRouteName();
         $allowedRoles     = [];
 
-        assertIsString($matchedRouteName);
+        assert(is_string($matchedRouteName));
         foreach (array_keys($this->rules) as $routeRule) {
-            assertIsString($routeRule);
+            assert(is_string($routeRule));
             if (fnmatch($routeRule, $matchedRouteName, FNM_CASEFOLD)) {
-                assertIsArray($this->rules[$routeRule]);
+                assert(is_array($this->rules[$routeRule]));
                 $allowedRoles = $this->rules[$routeRule];
                 break;
             }
