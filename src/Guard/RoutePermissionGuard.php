@@ -19,7 +19,10 @@ use function is_string;
 
 use const FNM_CASEFOLD;
 
-final class RoutePermissionGuard extends AbstractGuard
+/**
+ * @final
+ */
+class RoutePermissionGuard extends AbstractGuard
 {
     use ProtectionPolicyTrait;
 
