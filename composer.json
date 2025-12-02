@@ -23,7 +23,8 @@
     "lm-commons/lmc-rbac": "^2.2",
     "mezzio/mezzio-authentication": "^1.11",
     "mezzio/mezzio-router": "^3.7",
-    "mezzio/mezzio-template": "^2.1"
+    "mezzio/mezzio-template": "^2.1",
+    "psr/container": "^1.1"
   },
   "require-dev": {
     "laminas/laminas-coding-standard": "^3.1",
