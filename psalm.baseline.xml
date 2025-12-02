@@ -20,6 +20,21 @@
       <code><![CDATA[GuardInterface]]></code>
     </PossiblyUnusedReturnValue>
   </file>
+  <file src="src/Guard/RoutePermissionGuardFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(AuthorizationServiceInterface::class)]]></code>
+    </MixedArgument>
+    <MixedArrayOffset>
+      <code><![CDATA[$marshalledRules[$routeRegex]]]></code>
+    </MixedArrayOffset>
+    <MixedAssignment>
+      <code><![CDATA[$routeRegex]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[RoutePermissionGuard]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
   <file src="src/Middleware/GuardMiddlewareDelegatorFactory.php">
     <ClassMustBeFinal>
       <code><![CDATA[GuardMiddlewareDelegatorFactory]]></code>
@@ -59,6 +74,19 @@
     <PossiblyUnusedReturnValue>
       <code><![CDATA[MiddlewareInterface]]></code>
     </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Middleware/RoutePermissionGuardMiddlewareFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(RoutePermissionGuard::class)]]></code>
+    </MixedArgument>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[MiddlewareInterface]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Middleware/RoutePermissionsGuardMiddleware.php">
+    <MixedReturnStatement>
+      <code><![CDATA[$results->last()]]></code>
+    </MixedReturnStatement>
   </file>
   <file src="src/Options/Options.php">
     <ClassMustBeFinal>
@@ -206,6 +234,16 @@
       <code><![CDATA[testRulesRouteGuard]]></code>
       <code><![CDATA[testRulesRouteGuard]]></code>
     </PossiblyInvalidArgument>
+  </file>
+  <file src="test/Guard/RoutePermissionsGuardFactoryTest.php">
+    <MixedReturnStatement>
+      <code><![CDATA[array]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="test/Guard/RoutePermissionsGuardTest.php">
+    <MixedReturnStatement>
+      <code><![CDATA[array]]></code>
+    </MixedReturnStatement>
   </file>
   <file src="test/Service/RoleServiceTest.php">
     <PossiblyInvalidArgument>
