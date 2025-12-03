@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace LmcTest\Rbac\Mezzio\Middleware;
 
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
-use Lmc\Rbac\Mezzio\Guard\RouteGuard;
-use Lmc\Rbac\Mezzio\Middleware\RoutePermissionsGuardMiddleware;
+use Lmc\Rbac\Mezzio\Middleware\GuardMiddleware;
+use Lmc\Rbac\Mezzio\Options\Options;
 use LmcTest\Rbac\Mezzio\Assets\TestStrategy;
 use Mezzio\Router\RouteResult;
 use Override;
@@ -17,8 +17,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-#[CoversClass(RoutePermissionsGuardMiddleware::class)]
-final class RoutePermissionGuardTest extends TestCase
+#[CoversClass(GuardMiddleware::class)]
+final class GuardMiddlewareTest extends TestCase
 {
     /** @var ServerRequestInterface&MockObject */
     protected ServerRequestInterface $request;
@@ -43,7 +43,8 @@ final class RoutePermissionGuardTest extends TestCase
         $this->handler->expects($this->once())->method('handle')
             ->with($this->request)
             ->willReturn($response);
-        $middleware = new RoutePermissionsGuardMiddleware($this->createMock(GuardInterface::class));
+        $guards     = [$this->createMock(GuardInterface::class)];
+        $middleware = new GuardMiddleware($this->createMock(Options::class), $guards);
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
@@ -63,15 +64,17 @@ final class RoutePermissionGuardTest extends TestCase
             ->with($this->request)
             ->willReturn($response);
 
-        $middleware = new RoutePermissionsGuardMiddleware($this->createMock(GuardInterface::class));
+        $guards     = [$this->createMock(GuardInterface::class)];
+        $middleware = new GuardMiddleware($this->createMock(Options::class), $guards);
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
-    public function testIsGranted(): void
+    public function testIsGrantedPolicyAllow(): void
     {
         $response    = $this->createMock(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
-        $routeGuard  = $this->createMock(RouteGuard::class);
+        $routeGuard  = $this->createMock(GuardInterface::class);
+        $options     = $this->createMock(Options::class);
 
         // return false to mock route not found
         $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn('foo');
@@ -88,7 +91,72 @@ final class RoutePermissionGuardTest extends TestCase
             ->with($this->request)
             ->willReturn($response);
 
-        $middleware = new RoutePermissionsGuardMiddleware($routeGuard);
+        $options->expects($this->once())->method('getProtectionPolicy')
+            ->willReturn(GuardInterface::POLICY_ALLOW);
+
+        $middleware = new GuardMiddleware($options, [$routeGuard]);
+        self::assertSame($response, $middleware->process($this->request, $this->handler));
+    }
+
+    public function testIsGrantedPolicyDeny(): void
+    {
+        $response    = $this->createMock(ResponseInterface::class);
+        $routeResult = $this->createMock(RouteResult::class);
+        $routeGuard  = $this->createMock(GuardInterface::class);
+        $options     = $this->createMock(Options::class);
+
+        // return false to mock route not found
+        $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn('foo');
+
+        $routeGuard->expects($this->once())->method('isGranted')
+            ->with($this->request)
+            ->willReturn(true);
+
+        $this->request->expects($this->once())->method('getAttribute')
+            ->with(RouteResult::class)
+            ->willReturn($routeResult);
+
+        $this->handler->expects($this->once())->method('handle')
+            ->with($this->request)
+            ->willReturn($response);
+
+        $options->expects($this->once())->method('getProtectionPolicy')
+            ->willReturn(GuardInterface::POLICY_DENY);
+
+        $middleware = new GuardMiddleware($options, [$routeGuard]);
+        self::assertSame($response, $middleware->process($this->request, $this->handler));
+    }
+
+    public function testIsGrantedMultipleGuards(): void
+    {
+        $response    = $this->createMock(ResponseInterface::class);
+        $routeResult = $this->createMock(RouteResult::class);
+        $routeGuard1 = $this->createMock(GuardInterface::class);
+        $routeGuard2 = $this->createMock(GuardInterface::class);
+        $options     = $this->createMock(Options::class);
+
+        // return false to mock route not found
+        $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn('foo');
+
+        $routeGuard1->expects($this->once())->method('isGranted')
+            ->with($this->request)
+            ->willReturn(false);
+        $routeGuard2->expects($this->once())->method('isGranted')
+            ->with($this->request)
+            ->willReturn(true);
+
+        $this->request->expects($this->once())->method('getAttribute')
+            ->with(RouteResult::class)
+            ->willReturn($routeResult);
+
+        $this->handler->expects($this->once())->method('handle')
+            ->with($this->request)
+            ->willReturn($response);
+
+        $options->expects($this->once())->method('getProtectionPolicy')
+            ->willReturn(GuardInterface::POLICY_DENY);
+
+        $middleware = new GuardMiddleware($options, [$routeGuard1, $routeGuard2]);
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
@@ -96,7 +164,8 @@ final class RoutePermissionGuardTest extends TestCase
     {
         $response    = $this->createMock(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
-        $routeGuard  = $this->createMock(RouteGuard::class);
+        $routeGuard  = $this->createMock(GuardInterface::class);
+        $options     = $this->createMock(Options::class);
 
         // return false to mock route not found
         $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn('foo');
@@ -113,14 +182,18 @@ final class RoutePermissionGuardTest extends TestCase
             ->with($this->request)
             ->willReturn($response);
 
-        $middleware = new RoutePermissionsGuardMiddleware($routeGuard);
+        $options->expects($this->once())->method('getProtectionPolicy')
+            ->willReturn(GuardInterface::POLICY_ALLOW);
+
+        $middleware = new GuardMiddleware($options, [$routeGuard]);
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
     public function testNotGrantedWithStrategy(): void
     {
         $routeResult = $this->createMock(RouteResult::class);
-        $routeGuard  = $this->createMock(RouteGuard::class);
+        $routeGuard  = $this->createMock(GuardInterface::class);
+        $options     = $this->createMock(Options::class);
 
         $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn('foo');
 
@@ -136,7 +209,10 @@ final class RoutePermissionGuardTest extends TestCase
 
         $strategy = new TestStrategy();
 
-        $middleware = new RoutePermissionsGuardMiddleware($routeGuard);
+        $options->expects($this->once())->method('getProtectionPolicy')
+            ->willReturn(GuardInterface::POLICY_ALLOW);
+
+        $middleware = new GuardMiddleware($options, [$routeGuard]);
         $strategy->attach($middleware->getEventManager());
 
         self::assertInstanceOf(ResponseInterface::class, $middleware->process($this->request, $this->handler));

@@ -40,6 +40,8 @@ class Options extends AbstractOptions
 
     protected array $strategies = [];
 
+    protected array $guardManager = [];
+
     public function getGuards(): array
     {
         return $this->guards;
@@ -116,5 +118,15 @@ class Options extends AbstractOptions
     public function getStrategies(): array
     {
         return $this->strategies;
+    }
+
+    public function setGuardManager(array $guardManager): void
+    {
+        $this->guardManager = $guardManager;
+    }
+
+    public function getGuardManager(): array
+    {
+        return $this->guardManager;
     }
 }

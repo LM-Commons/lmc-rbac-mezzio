@@ -25,21 +25,17 @@ final class ConfigProvider
     {
         return [
             'factories'  => [
-                Options\Options::class                 => Options\OptionsFactory::class,
-                Guard\RouteGuard::class                => Guard\RouteGuardFactory::class,
-                Guard\RoutePermissionGuard::class      => Guard\RoutePermissionGuardFactory::class,
-                Service\RoleServiceInterface::class    => Service\RoleServiceFactory::class,
-                Middleware\RouteGuardMiddleware::class => Middleware\RouteGuardMiddlewareFactory::class,
-                Middleware\RoutePermissionsGuardMiddleware::class
-                    => Middleware\RoutePermissionGuardMiddlewareFactory::class,
-                RedirectStrategy::class     => RedirectStrategyFactory::class,
-                UnauthorizedStrategy::class => UnauthorizedStrategyFactory::class,
+                Options\Options::class              => Options\OptionsFactory::class,
+                Guard\RouteGuard::class             => Guard\RouteGuardFactory::class,
+                Guard\RoutePermissionGuard::class   => Guard\RoutePermissionGuardFactory::class,
+                Guard\GuardPluginManager::class     => Guard\GuardPluginManagerFactory::class,
+                Service\RoleServiceInterface::class => Service\RoleServiceFactory::class,
+                Middleware\GuardMiddleware::class   => Middleware\GuardMiddlewareFactory::class,
+                RedirectStrategy::class             => RedirectStrategyFactory::class,
+                UnauthorizedStrategy::class         => UnauthorizedStrategyFactory::class,
             ],
             'delegators' => [
-                Middleware\RouteGuardMiddleware::class            => [
-                    GuardMiddlewareDelegatorFactory::class,
-                ],
-                Middleware\RoutePermissionsGuardMiddleware::class => [
+                Middleware\GuardMiddleware::class => [
                     GuardMiddlewareDelegatorFactory::class,
                 ],
             ],

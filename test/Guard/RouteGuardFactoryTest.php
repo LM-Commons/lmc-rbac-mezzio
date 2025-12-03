@@ -26,6 +26,6 @@ final class RouteGuardFactoryTest extends TestCase
                 [RoleServiceInterface::class, $this->createMock(RoleServiceInterface::class)],
             ]);
         $factory = new RouteGuardFactory();
-        $factory($container);
+        $factory($container, 'foo', $options->getGuards()[RouteGuard::class] ?? []);
     }
 }
