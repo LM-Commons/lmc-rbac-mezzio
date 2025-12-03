@@ -31,27 +31,7 @@ final class RoutePermissionsGuardFactoryTest extends TestCase
                 [AuthorizationServiceInterface::class, $this->createMock(AuthorizationServiceInterface::class)],
             ]);
         $factory = new RoutePermissionGuardFactory();
-        $factory($container);
-    }
-
-    public function testInvokeInvalidRules(): void
-    {
-        $options = new Options();
-        $options->setGuards([
-            RoutePermissionGuard::class => 'foo',
-        ]);
-        $container = $this->createMock(ContainerInterface::class);
-        $container->expects($this->any())->method('get')
-            ->willReturnMap([
-                [Options::class, $options],
-                [
-                    AuthorizationServiceInterface::class,
-                    $this->createMock(AuthorizationServiceInterface::class),
-                ],
-            ]);
-        $this->expectException(InvalidConfigurationException::class);
-        $factory = new RoutePermissionGuardFactory();
-        $factory($container);
+        $factory($container, 'foo', $options->getGuards()[RoutePermissionGuard::class] ?? []);
     }
 
     #[DataProvider('rulesProvider')]
@@ -74,7 +54,7 @@ final class RoutePermissionsGuardFactoryTest extends TestCase
             $this->expectException(InvalidConfigurationException::class);
         }
         $factory = new RoutePermissionGuardFactory();
-        $factory($container);
+        $factory($container, 'foo', $options->getGuards()[RoutePermissionGuard::class] ?? []);
     }
 
     public static function rulesProvider(): array
