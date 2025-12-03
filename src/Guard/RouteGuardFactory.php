@@ -15,18 +15,17 @@ class RouteGuardFactory
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @psalm-suppress PossiblyUnusedParam
      */
-    public function __invoke(ContainerInterface $container): GuardInterface
+    public function __invoke(ContainerInterface $container, string $resolvedName, array $options): GuardInterface
     {
-        /** @var Options $options */
-        $options = $container->get(Options::class);
-        $guards  = $options->getGuards();
-        /** @var array $rules */
-        $rules = $guards[RouteGuard::class] ?? [];
+        /** @var Options $moduleOptions */
+        $moduleOptions = $container->get(Options::class);
         return new RouteGuard(
+            /** @psalm-suppress MixedArgument */
             $container->get(RoleServiceInterface::class),
-            $rules,
-            $options->getProtectionPolicy()
+            $options,
+            $moduleOptions->getProtectionPolicy()
         );
     }
 }

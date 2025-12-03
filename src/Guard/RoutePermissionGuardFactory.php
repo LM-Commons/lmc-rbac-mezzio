@@ -10,31 +10,22 @@ use Lmc\Rbac\Service\AuthorizationServiceInterface;
 use Psr\Container\ContainerInterface;
 
 use function count;
-use function gettype;
 use function in_array;
 use function is_array;
 use function is_int;
-use function sprintf;
 
 final class RoutePermissionGuardFactory
 {
-    public function __invoke(ContainerInterface $container): RoutePermissionGuard
+    /** @psalm-suppress UnusedParam */
+    public function __invoke(ContainerInterface $container, string $resolvedName, array $options): RoutePermissionGuard
     {
-        /** @var Options $options */
-        $options = $container->get(Options::class);
-        $guards  = $options->getGuards();
-        $rules   = $guards[RoutePermissionGuard::class] ?? [];
-        if (! is_array($rules)) {
-            throw new InvalidConfigurationException(sprintf(
-                'Rules must be an array, %s given',
-                gettype($rules)
-            ));
-        }
-        $rules = $this->marshallRules($rules);
+        /** @var Options $moduleOptions */
+        $moduleOptions = $container->get(Options::class);
+        $rules = $this->marshallRules($options);
         return new RoutePermissionGuard(
             $container->get(AuthorizationServiceInterface::class),
             $rules,
-            $options->getProtectionPolicy(),
+            $moduleOptions->getProtectionPolicy(),
         );
     }
 

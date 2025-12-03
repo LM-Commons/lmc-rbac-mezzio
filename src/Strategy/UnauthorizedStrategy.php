@@ -25,6 +25,9 @@ class UnauthorizedStrategy extends AbstractStrategy
             return new HtmlResponse(
                 $this->renderer->render(
                     $this->options->getTemplate(),
+                    [
+                        'error' => $event->getParam('error'),
+                    ],
                 )
             );
         }

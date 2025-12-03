@@ -24,6 +24,7 @@ final class OptionsTest extends TestCase
         $this->assertEquals(GuardInterface::POLICY_ALLOW, $options->getProtectionPolicy());
         $this->assertIsArray($options->getGuards());
         $this->assertIsArray($options->getStrategies());
+        $this->assertIsArray($options->getGuardManager());
         $this->assertInstanceOf(UnauthorizedStrategyOptions::class, $options->getUnauthorizedStrategyOptions());
         $this->assertInstanceOf(RedirectStrategyOptions::class, $options->getRedirectStrategyOptions());
     }
@@ -41,10 +42,12 @@ final class OptionsTest extends TestCase
                 'redirect_to_route_connected'    => 'home',
                 'redirect_to_route_disconnected' => 'login',
             ],
+            'guard_manager'                 => [],
         ]);
 
         $this->assertEquals([], $options->getGuards());
         $this->assertEquals([], $options->getStrategies());
+        $this->assertEquals([], $options->getGuardManager());
         $this->assertEquals('deny', $options->getProtectionPolicy());
         $this->assertInstanceOf(UnauthorizedStrategyOptions::class, $options->getUnauthorizedStrategyOptions());
         $this->assertInstanceOf(RedirectStrategyOptions::class, $options->getRedirectStrategyOptions());
