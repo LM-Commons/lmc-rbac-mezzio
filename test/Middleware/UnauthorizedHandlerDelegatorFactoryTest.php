@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace LmcTest\Rbac\Mezzio\Middleware;
 
 use Laminas\EventManager\EventManager;
-use Lmc\Rbac\Mezzio\Middleware\GuardMiddlewareDelegatorFactory;
+use Lmc\Rbac\Mezzio\Middleware\UnauthorizedHandlerDelegatorFactory;
 use Lmc\Rbac\Mezzio\Options\Options;
 use Lmc\Rbac\Mezzio\Strategy\AbstractStrategy;
-use LmcTest\Rbac\Mezzio\Assets\TestGuardMiddleware;
+use LmcTest\Rbac\Mezzio\Assets\TestUnauthorizedHandler;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-final class GuardMiddlewareDelegatorFactoryTest extends TestCase
+#[CoversClass(UnauthorizedHandlerDelegatorFactory::class)]
+final class UnauthorizedHandlerDelegatorFactoryTest extends TestCase
 {
     public function testInvokeStrategyAsStringClass(): void
     {
@@ -26,17 +28,17 @@ final class GuardMiddlewareDelegatorFactoryTest extends TestCase
                 [Options::class, $options],
                 ['foo::class', $strategy],
             ]);
-        $guard  = new TestGuardMiddleware();
-        $events = new EventManager();
-        $guard->setEventManager($events);
+        $handler = new TestUnauthorizedHandler();
+        $events  = new EventManager();
+        $handler->setEventManager($events);
         $strategy->expects($this->once())->method('attach')
             ->with($events, 1);
 
-        $callable  = function () use ($guard): TestGuardMiddleware {
-            return $guard;
+        $callable  = function () use ($handler): TestUnauthorizedHandler {
+            return $handler;
         };
-        $delegator = new GuardMiddlewareDelegatorFactory();
-        self::assertSame($guard, $delegator($container, 'foo', $callable));
+        $delegator = new UnauthorizedHandlerDelegatorFactory();
+        self::assertSame($handler, $delegator($container, 'foo', $callable));
     }
 
     public function testInvokeStrategyAsClass(): void
@@ -51,16 +53,16 @@ final class GuardMiddlewareDelegatorFactoryTest extends TestCase
                 [Options::class, $options],
                 ['foo::class', $strategy],
             ]);
-        $guard  = new TestGuardMiddleware();
-        $events = new EventManager();
-        $guard->setEventManager($events);
+        $handler = new TestUnauthorizedHandler();
+        $events  = new EventManager();
+        $handler->setEventManager($events);
         $strategy->expects($this->once())->method('attach')
             ->with($events, 1);
 
-        $callable  = function () use ($guard): TestGuardMiddleware {
-            return $guard;
+        $callable  = function () use ($handler): TestUnauthorizedHandler {
+            return $handler;
         };
-        $delegator = new GuardMiddlewareDelegatorFactory();
-        self::assertSame($guard, $delegator($container, 'foo', $callable));
+        $delegator = new UnauthorizedHandlerDelegatorFactory();
+        self::assertSame($handler, $delegator($container, 'foo', $callable));
     }
 }

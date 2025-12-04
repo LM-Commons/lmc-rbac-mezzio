@@ -5,7 +5,7 @@ sidebar_position: 3
 
 ## What are strategies?
 
-A strategy is an object that listens to the `AbstractGuardMiddleware::EVENT_NAME` event.
+A strategy is an object that listens to the `AuthorizedEvent::EVENT_UNAUTHORIZED` event.
 It is used to perform an action access to a resource is unauthorized by LmcRbacMezzio.
 
 By default, LmcRbacMezzio does not register any strategy for you. 

@@ -50,28 +50,26 @@
     <MissingOverrideAttribute>
       <code><![CDATA[public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface]]></code>
     </MissingOverrideAttribute>
-    <MixedReturnStatement>
-      <code><![CDATA[$results->last()]]></code>
-    </MixedReturnStatement>
   </file>
-  <file src="src/Middleware/GuardMiddlewareDelegatorFactory.php">
-    <ClassMustBeFinal>
-      <code><![CDATA[GuardMiddlewareDelegatorFactory]]></code>
-    </ClassMustBeFinal>
+  <file src="src/Middleware/GuardMiddlewareFactory.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[GuardMiddleware]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Middleware/UnauthorizedHandlerDelegatorFactory.php">
     <MixedArgument>
       <code><![CDATA[$classOrOptions]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$classOrOptions]]></code>
     </MixedAssignment>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$options]]></code>
-    </PossiblyUnusedParam>
   </file>
-  <file src="src/Middleware/GuardMiddlewareFactory.php">
+  <file src="src/Middleware/UnauthorizedHandlerFactory.php">
+    <MixedArgument>
+      <code><![CDATA[$container->get(Options::class)]]></code>
+    </MixedArgument>
     <PossiblyUnusedReturnValue>
-      <code><![CDATA[GuardMiddleware]]></code>
+      <code><![CDATA[UnauthorizedHandler]]></code>
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Options/Options.php">

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 2
-title: Guards Middleware
+title: Guards and Middlewares
 ---
 In this section, you will learn:
 
