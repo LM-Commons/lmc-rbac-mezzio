@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://lm-commons.github.io/LmcRbacMezzio/blog</id>
+    <title>LMC RBAC Mezzio Blog</title>
+    <updated>2025-11-26T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://lm-commons.github.io/LmcRbacMezzio/blog"/>
+    <subtitle>LMC RBAC Mezzio Blog</subtitle>
+    <icon>https://lm-commons.github.io/LmcRbacMezzio/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Sample blog post]]></title>
+        <id>https://lm-commons.github.io/LmcRbacMezzio/blog/sample-post</id>
+        <link href="https://lm-commons.github.io/LmcRbacMezzio/blog/sample-post"/>
+        <updated>2025-11-26T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[This is a sample blog post.]]></summary>
+        <content type="html"><![CDATA[<p>This is a sample blog post.</p>
+<!-- -->
+<p>If you want to add your name as an author, edit the <code>blog/authors.yml</code> file.</p>]]></content>
+        <author>
+            <name>Eric Richer</name>
+            <uri>https://github.com/visto9259</uri>
+        </author>
+        <category label="laminas" term="laminas"/>
+        <category label="mezzio" term="mezzio"/>
+        <category label="PHP" term="PHP"/>
+        <category label="LM-Commons" term="LM-Commons"/>
+    </entry>
+</feed>
