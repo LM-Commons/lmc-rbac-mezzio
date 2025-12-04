@@ -17,8 +17,8 @@ export default function HomepageFeatures() {
                 <Heading as="h2">Support</Heading>
                 <ul>
                     <li>File issues at <Link
-                        href={'https://github.com/LM-Commons/'+packageConfig.packageName+'/issues'}>
-                        github.com/LM-Commons/{packageConfig.packageName}/issues</Link>.
+                        href={'https://github.com/LM-Commons/'+packageConfig.projectName+'/issues'}>
+                        github.com/LM-Commons/{packageConfig.projectName}/issues</Link>.
                     </li>
                     <li>Ask questions in the <Link
                         href="https://discord.gg/MSQZQJcS4S">LM-Commons

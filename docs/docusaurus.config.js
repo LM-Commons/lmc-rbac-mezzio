@@ -24,7 +24,7 @@ const config = {
   url: 'https://lm-commons.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/'+packageConfig.packageName+'/',
+  baseUrl: '/'+packageConfig.projectName+'/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -143,7 +143,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/lmc-commons/package-repo',
+                href: 'https://github.com/lm-commons/'+packageConfig.projectName,
               },
             ],
           },
