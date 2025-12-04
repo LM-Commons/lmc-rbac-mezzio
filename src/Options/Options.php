@@ -42,6 +42,8 @@ class Options extends AbstractOptions
 
     protected array $guardManager = [];
 
+    protected array $exceptionCodes = ['403'];
+
     public function getGuards(): array
     {
         return $this->guards;
@@ -128,5 +130,15 @@ class Options extends AbstractOptions
     public function getGuardManager(): array
     {
         return $this->guardManager;
+    }
+
+    public function getExceptionCodes(): array
+    {
+        return $this->exceptionCodes;
+    }
+
+    public function setExceptionCodes(array $exceptionCodes): void
+    {
+        $this->exceptionCodes = $exceptionCodes;
     }
 }

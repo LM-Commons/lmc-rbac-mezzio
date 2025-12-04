@@ -26,7 +26,8 @@ class UnauthorizedStrategy extends AbstractStrategy
                 $this->renderer->render(
                     $this->options->getTemplate(),
                     [
-                        'error' => $event->getParam('error'),
+                        'error'     => $event->getParam('error'),
+                        'exception' => $event->getParam('exception'),
                     ],
                 )
             );

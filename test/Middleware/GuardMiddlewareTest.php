@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace LmcTest\Rbac\Mezzio\Middleware;
 
+use Lmc\Rbac\Mezzio\Exception\UnauthorizedException;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
 use Lmc\Rbac\Mezzio\Middleware\GuardMiddleware;
 use Lmc\Rbac\Mezzio\Options\Options;
-use LmcTest\Rbac\Mezzio\Assets\TestStrategy;
 use Mezzio\Router\RouteResult;
 use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -160,7 +160,7 @@ final class GuardMiddlewareTest extends TestCase
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
-    public function testNotGrantedNoStrategy(): void
+    public function testNotGranted(): void
     {
         $response    = $this->createMock(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
@@ -178,7 +178,7 @@ final class GuardMiddlewareTest extends TestCase
             ->with(RouteResult::class)
             ->willReturn($routeResult);
 
-        $this->handler->expects($this->once())->method('handle')
+        $this->handler->expects($this->never())->method('handle')
             ->with($this->request)
             ->willReturn($response);
 
@@ -186,35 +186,7 @@ final class GuardMiddlewareTest extends TestCase
             ->willReturn(GuardInterface::POLICY_ALLOW);
 
         $middleware = new GuardMiddleware($options, [$routeGuard]);
-        self::assertSame($response, $middleware->process($this->request, $this->handler));
-    }
-
-    public function testNotGrantedWithStrategy(): void
-    {
-        $routeResult = $this->createMock(RouteResult::class);
-        $routeGuard  = $this->createMock(GuardInterface::class);
-        $options     = $this->createMock(Options::class);
-
-        $routeResult->expects($this->once())->method('getMatchedRouteName')->willReturn('foo');
-
-        $routeGuard->expects($this->once())->method('isGranted')
-            ->with($this->request)
-            ->willReturn(false);
-
-        $this->request->expects($this->once())->method('getAttribute')
-            ->with(RouteResult::class)
-            ->willReturn($routeResult);
-
-        $this->handler->expects($this->never())->method('handle');
-
-        $strategy = new TestStrategy();
-
-        $options->expects($this->once())->method('getProtectionPolicy')
-            ->willReturn(GuardInterface::POLICY_ALLOW);
-
-        $middleware = new GuardMiddleware($options, [$routeGuard]);
-        $strategy->attach($middleware->getEventManager());
-
-        self::assertInstanceOf(ResponseInterface::class, $middleware->process($this->request, $this->handler));
+        $this->expectException(UnauthorizedException::class);
+        $middleware->process($this->request, $this->handler);
     }
 }

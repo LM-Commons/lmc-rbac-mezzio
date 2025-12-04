@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lmc\Rbac\Mezzio\Middleware;
 
+use Lmc\Rbac\Mezzio\Exception\UnauthorizedException;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
 use Lmc\Rbac\Mezzio\Options\Options;
 use Mezzio\Router\RouteResult;
@@ -17,7 +18,7 @@ use function assert;
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  */
-final class GuardMiddleware extends AbstractGuardMiddleware implements MiddlewareInterface
+final class GuardMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private readonly Options $options,
@@ -56,19 +57,6 @@ final class GuardMiddleware extends AbstractGuardMiddleware implements Middlewar
             return $handler->handle($request);
         }
 
-        // not granted, go through strategies
-        $results = $this->getEventManager()->triggerUntil(function (null|ResponseInterface $result) {
-            return $result instanceof ResponseInterface;
-        },
-        self::EVENT_NAME,
-        $this,
-        [
-            'request' => $request,
-            'error'   => GuardInterface::GUARD_UNAUTHORIZED,
-        ]);
-        if ($results->last() instanceof ResponseInterface) {
-            return $results->last();
-        }
-        return $handler->handle($request);
+        throw new UnauthorizedException();
     }
 }

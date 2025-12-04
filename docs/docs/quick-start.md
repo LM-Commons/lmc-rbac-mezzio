@@ -9,7 +9,7 @@ Access Controls in Mezzio applications.
 LmcRbacMezzio provides additional features on top of [LmcRbac](https://lm-commons.github.io/LmcRbac)
 that are suitable for a Laminas Mezzio application:
 
-- Guards that acts like a firewall allowing access to routes, controllers and actions to authorized users.
+- Guards and middlewares that acts like a firewall allowing access to routes to authorized users.
 - Strategies to execute when unauthorized access occurs such as redirection and error responses
 
 It is highly recommended to first go through the concepts and usage of LmcRbac before using
@@ -38,6 +38,23 @@ component into your `config/config.php` file.
 Before you start configuring LmcRbacMezzio, you must set up [LmcRbac](https://lm-commons.github.io/LmcRbac)
 first. Please follow the [instructions](https://lm-commons.github.io/LmcRbac/docs/gettingstarted) in LmcRbac documentation.
 
+## Adding middlewares
+
+LmcRbacMezzio provides two middlewares: `UnauthorizedHandler` and `GuardMiddleware`.
+
+The `UnauthorizedHandler` is a middleware that handles unauthorized exception. It is responsible for
+performing the necessary logic to determine the strategy to use when an unauthorized excpetion occurs.
+It should be added to the pipeline after the `RoutingMiddleware` and before the `GuardMiddleware`.
+
+The `GuardMiddleware` is a middleware that blocks access to routes based on the guard configuration.
+If access is denied, and `UnauthorizedException` exeption is thrown and is handled by  the `UnauthorizedHandler` middleware.
+It should be added to the pipeline after the `UnauthorizedHandler` and after an authentication
+middleware (if any) but before the `DispatchMiddleware`.
+
+In a typical Mezzio application:, the `UnauthorizedHandler` and `GuardMiddleware` middlewares are 
+added to the pipeline in the `config/pipeline.php` file:
+
+
 ## Adding a guard
 
 A guard allows your application to block access to routes using a simple syntax. For instance, this configuration
@@ -54,10 +71,6 @@ return [
     ]
 ];
 ```
-Guards are executed by the `GuardMiddleware` middleware, which you can add to your application's pipeline,
-after the `RoutingMiddleware` and after an authentication middleware (if any).
-
-In a typical Mezzio application:, the `GuardMiddleware` is added to the pipeline in the `config/pipeline.php` file:
 
 ```php
 <?php
