@@ -42,10 +42,10 @@ final class UnauthorizedHandler implements MiddlewareInterface, EventManagerAwar
         try {
             return $handler->handle($request);
         } catch (UnauthorizedException $exception) {
-            return $this->handleUnauthorizedException($request, $handler, $exception);
+            return $this->handleUnauthorizedException($request, $exception);
         } catch (Throwable $exception) {
             if (in_array($exception->getCode(), $this->options->getExceptionCodes())) {
-                return $this->handleUnauthorizedException($request, $handler, $exception);
+                return $this->handleUnauthorizedException($request, $exception);
             }
             throw $exception;
         }
@@ -53,7 +53,6 @@ final class UnauthorizedHandler implements MiddlewareInterface, EventManagerAwar
 
     protected function handleUnauthorizedException(
         ServerRequestInterface $request,
-        RequestHandlerInterface $handler,
         mixed $exception,
     ): ResponseInterface {
         // not granted, go through strategies
