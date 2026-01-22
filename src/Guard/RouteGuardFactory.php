@@ -10,21 +10,26 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
+use function assert;
+use function is_array;
+
 class RouteGuardFactory
 {
     /**
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
-     * @psalm-suppress PossiblyUnusedParam
      */
-    public function __invoke(ContainerInterface $container, string $resolvedName, array $options): GuardInterface
+    public function __invoke(ContainerInterface $container): GuardInterface
     {
         /** @var Options $moduleOptions */
         $moduleOptions = $container->get(Options::class);
+        $rules         = $moduleOptions->getGuardOptions(RouteGuard::class);
+        assert(is_array($rules));
+
+        /** @psalm-suppress MixedArgument */
         return new RouteGuard(
-            /** @psalm-suppress MixedArgument */
             $container->get(RoleServiceInterface::class),
-            $options,
+            $rules,
             $moduleOptions->getProtectionPolicy()
         );
     }

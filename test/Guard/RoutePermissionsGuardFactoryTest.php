@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LmcTest\Rbac\Mezzio\Guard;
 
+use AssertionError;
 use Lmc\Rbac\Mezzio\Exception\InvalidConfigurationException;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
 use Lmc\Rbac\Mezzio\Guard\RoutePermissionGuard;
@@ -31,7 +32,23 @@ final class RoutePermissionsGuardFactoryTest extends TestCase
                 [AuthorizationServiceInterface::class, $this->createMock(AuthorizationServiceInterface::class)],
             ]);
         $factory = new RoutePermissionGuardFactory();
-        $factory($container, 'foo', $options->getGuards()[RoutePermissionGuard::class] ?? []);
+        $factory($container);
+    }
+
+    public function testInvokeInvalidRules(): void
+    {
+        $options = new Options();
+        $options->setGuards([
+            RoutePermissionGuard::class => 'foo',
+        ]);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects($this->exactly(1))->method('get')
+            ->willReturnMap([
+                [Options::class, $options],
+            ]);
+        $this->expectException(AssertionError::class);
+        $factory = new RoutePermissionGuardFactory();
+        $factory($container);
     }
 
     #[DataProvider('rulesProvider')]
@@ -54,7 +71,7 @@ final class RoutePermissionsGuardFactoryTest extends TestCase
             $this->expectException(InvalidConfigurationException::class);
         }
         $factory = new RoutePermissionGuardFactory();
-        $factory($container, 'foo', $options->getGuards()[RoutePermissionGuard::class] ?? []);
+        $factory($container);
     }
 
     public static function rulesProvider(): array

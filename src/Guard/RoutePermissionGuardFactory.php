@@ -9,6 +9,7 @@ use Lmc\Rbac\Mezzio\Options\Options;
 use Lmc\Rbac\Service\AuthorizationServiceInterface;
 use Psr\Container\ContainerInterface;
 
+use function assert;
 use function count;
 use function in_array;
 use function is_array;
@@ -16,12 +17,16 @@ use function is_int;
 
 final class RoutePermissionGuardFactory
 {
-    /** @psalm-suppress UnusedParam */
-    public function __invoke(ContainerInterface $container, string $resolvedName, array $options): RoutePermissionGuard
+    public function __invoke(ContainerInterface $container): RoutePermissionGuard
     {
         /** @var Options $moduleOptions */
         $moduleOptions = $container->get(Options::class);
-        $rules         = $this->marshallRules($options);
+        $rules         = $moduleOptions->getGuardOptions(RoutePermissionGuard::class);
+        assert(is_array($rules));
+
+        $rules = $this->marshallRules($rules);
+
+        /** @psalm-suppress MixedArgument */
         return new RoutePermissionGuard(
             $container->get(AuthorizationServiceInterface::class),
             $rules,

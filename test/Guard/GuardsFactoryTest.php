@@ -28,6 +28,10 @@ final class GuardsFactoryTest extends TestCase
         $this->container = $this->createMock(ContainerInterface::class);
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function testNoGuards(): void
     {
         $options = new Options();
@@ -51,7 +55,7 @@ final class GuardsFactoryTest extends TestCase
         ]);
         $guardPluginManager = $this->createMock(GuardPluginManager::class);
         $guardPluginManager->expects($this->once())->method('get')
-            ->with(RouteGuard::class, [])
+            ->with(RouteGuard::class)
             ->willReturn($this->createMock(RouteGuard::class));
         $this->container->expects($this->exactly(2))->method('get')
             ->willReturnMap([
