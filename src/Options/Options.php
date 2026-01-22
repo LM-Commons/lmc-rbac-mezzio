@@ -5,8 +5,13 @@ declare(strict_types=1);
 namespace Lmc\Rbac\Mezzio\Options;
 
 use Laminas\Stdlib\AbstractOptions;
+use Laminas\Stdlib\ArrayUtils;
 use Lmc\Rbac\Mezzio\Exception\InvalidProtectionPolicyException;
 use Lmc\Rbac\Mezzio\Guard\GuardInterface;
+use Lmc\Rbac\Mezzio\Guard\RouteGuard;
+use Lmc\Rbac\Mezzio\Guard\RouteGuardFactory;
+use Lmc\Rbac\Mezzio\Guard\RoutePermissionGuard;
+use Lmc\Rbac\Mezzio\Guard\RoutePermissionGuardFactory;
 
 use function sprintf;
 
@@ -21,6 +26,7 @@ class Options extends AbstractOptions
     protected $__strictMode__ = false;
     // phpcs: enable
 
+    /** @var array<string, TValue> */
     protected array $guards = [];
 
     /**
@@ -40,15 +46,26 @@ class Options extends AbstractOptions
 
     protected array $strategies = [];
 
-    protected array $guardManager = [];
+    protected array $guardManager = [
+        'factories' => [
+            RouteGuard::class           => RouteGuardFactory::class,
+            RoutePermissionGuard::class => RoutePermissionGuardFactory::class,
+        ],
+    ];
 
     protected array $exceptionCodes = ['403'];
 
+    /**
+     * @return array<string, TValue>
+     */
     public function getGuards(): array
     {
         return $this->guards;
     }
 
+    /**
+     * @param array<string, mixed> $guards
+     */
     public function setGuards(array $guards): void
     {
         $this->guards = $guards;
@@ -124,7 +141,7 @@ class Options extends AbstractOptions
 
     public function setGuardManager(array $guardManager): void
     {
-        $this->guardManager = $guardManager;
+        $this->guardManager = ArrayUtils::merge($this->guardManager, $guardManager);
     }
 
     public function getGuardManager(): array
@@ -140,5 +157,10 @@ class Options extends AbstractOptions
     public function setExceptionCodes(array $exceptionCodes): void
     {
         $this->exceptionCodes = $exceptionCodes;
+    }
+
+    public function getGuardOptions(string $guard): mixed
+    {
+        return $this->guards[$guard] ?? [];
     }
 }

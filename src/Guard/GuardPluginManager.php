@@ -18,12 +18,6 @@ use function sprintf;
  */
 class GuardPluginManager extends AbstractPluginManager
 {
-    /** @var string[]|callable[] */
-    protected $factories = [
-        RouteGuard::class           => RouteGuardFactory::class,
-        RoutePermissionGuard::class => RoutePermissionGuardFactory::class,
-    ];
-
     /**
      * @inheritDoc
      */

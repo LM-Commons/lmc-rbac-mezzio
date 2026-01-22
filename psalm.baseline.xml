@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.13.1@1e3b7f0a8ab32b23197b91107adc0a7ed8a05b51">
+<files psalm-version="6.14.3@d0b040a91f280f071c1abcb1b77ce3822058725a">
   <file src="src/Guard/GuardPluginManager.php">
     <MissingOverrideAttribute>
       <code><![CDATA[public function validate($instance): void]]></code>
@@ -7,9 +7,11 @@
     <MissingParamType>
       <code><![CDATA[$instance]]></code>
     </MissingParamType>
-    <NonInvariantDocblockPropertyType>
-      <code><![CDATA[$factories]]></code>
-    </NonInvariantDocblockPropertyType>
+  </file>
+  <file src="src/Guard/GuardPluginManagerFactory.php">
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$options->getGuardManager()]]></code>
+    </MixedArgumentTypeCoercion>
   </file>
   <file src="src/Guard/RouteGuard.php">
     <MixedArrayOffset>
@@ -24,17 +26,11 @@
     <ClassMustBeFinal>
       <code><![CDATA[RouteGuardFactory]]></code>
     </ClassMustBeFinal>
-    <MixedArgument>
-      <code><![CDATA[$container->get(RoleServiceInterface::class)]]></code>
-    </MixedArgument>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[GuardInterface]]></code>
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Guard/RoutePermissionGuardFactory.php">
-    <MixedArgument>
-      <code><![CDATA[$container->get(AuthorizationServiceInterface::class)]]></code>
-    </MixedArgument>
     <MixedArrayOffset>
       <code><![CDATA[$marshalledRules[$routeRegex]]]></code>
     </MixedArrayOffset>
@@ -77,7 +73,6 @@
       <code><![CDATA[Options]]></code>
     </ClassMustBeFinal>
     <PossiblyUnusedMethod>
-      <code><![CDATA[setGuardManager]]></code>
       <code><![CDATA[setRedirectStrategyOptions]]></code>
       <code><![CDATA[setUnauthorizedStrategyOptions]]></code>
     </PossiblyUnusedMethod>
@@ -217,11 +212,6 @@
       <code><![CDATA[$container]]></code>
     </UnusedClosureParam>
   </file>
-  <file src="test/Guard/RouteGuardFactoryTest.php">
-    <MixedArgument>
-      <code><![CDATA[$options->getGuards()[RouteGuard::class] ?? []]]></code>
-    </MixedArgument>
-  </file>
   <file src="test/Guard/RouteGuardTest.php">
     <PossiblyInvalidArgument>
       <code><![CDATA[testRulesRouteGuard]]></code>
@@ -232,10 +222,6 @@
     </PossiblyInvalidArgument>
   </file>
   <file src="test/Guard/RoutePermissionsGuardFactoryTest.php">
-    <MixedArgument>
-      <code><![CDATA[$options->getGuards()[RoutePermissionGuard::class] ?? []]]></code>
-      <code><![CDATA[$options->getGuards()[RoutePermissionGuard::class] ?? []]]></code>
-    </MixedArgument>
     <MixedReturnStatement>
       <code><![CDATA[array]]></code>
     </MixedReturnStatement>
@@ -252,5 +238,10 @@
       <code><![CDATA[testMatchIdentityRoles]]></code>
       <code><![CDATA[testMatchIdentityRoles]]></code>
     </PossiblyInvalidArgument>
+  </file>
+  <file src="test/Util/ServiceManagerFactory.php">
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$configProvider->getDependencies()]]></code>
+    </MixedArgumentTypeCoercion>
   </file>
 </files>

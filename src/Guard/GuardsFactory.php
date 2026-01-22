@@ -29,14 +29,12 @@ final class GuardsFactory
         $guardPluginManager = $container->get(GuardPluginManager::class);
         $guards             = [];
 
-        /**
-         * @var string $guard
-         * @var array $options
-         */
-        foreach ($guardOptions as $guard => $options) {
-            /** @psalm-suppress MixedAssignment */
-            $guards[] = $guardPluginManager->get($guard, $options);
+        /** @psalm-suppress MixedAssignment */
+        // phpcs:disable
+        foreach ($guardOptions as $guard => $_) {
+            $guards[] = $guardPluginManager->get($guard);
         }
+        // phpcs:enable
 
         return $guards;
     }
