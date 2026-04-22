@@ -5,7 +5,7 @@ Mezzio applications
 
 ## Requirements
 
-- PHP 8.2 or higher
+- PHP 8.3 or higher
 
 ## Installation
 
