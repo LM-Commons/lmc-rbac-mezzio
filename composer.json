@@ -22,15 +22,16 @@
     "laminas/laminas-eventmanager": "^3.14",
     "lm-commons/lmc-rbac": "^2.2",
     "mezzio/mezzio-authentication": "^1.11",
-    "mezzio/mezzio-router": "^3.7",
-    "mezzio/mezzio-template": "^2.1",
-    "psr/container": "^1.1"
+    "mezzio/mezzio-router": "^3.7 || ^4.0",
+    "mezzio/mezzio-template": "^2.2 || ^3.0",
+    "psr/container": "^1.1.2 || ^2.0"
   },
   "require-dev": {
     "laminas/laminas-coding-standard": "^3.1",
     "phpunit/phpunit": "^12.5.22",
     "psalm/plugin-phpunit": "^0.19.5",
-    "vimeo/psalm": "^6.16"
+    "vimeo/psalm": "^6.16",
+    "dg/bypass-finals": "^1.9"
   },
   "autoload": {
     "psr-4": {
