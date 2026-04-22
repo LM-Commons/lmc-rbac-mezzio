@@ -9,9 +9,7 @@ use Lmc\Rbac\Mezzio\Options\RedirectStrategyOptions;
 use Lmc\Rbac\Mezzio\Strategy\RedirectStrategy;
 use Mezzio\Authentication\UserInterface;
 use Mezzio\Router\RouterInterface;
-use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -21,61 +19,52 @@ use Psr\Http\Message\UriInterface;
 #[CoversClass(RedirectStrategy::class)]
 final class RedirectStrategyTest extends TestCase
 {
-    protected RedirectStrategyOptions $options;
-
-    /** @var RouterInterface&MockObject  */
-    protected RouterInterface $router;
-
-    /** @var ResponseFactoryInterface&MockObject  */
-    protected ResponseFactoryInterface $responseFactory;
-
-    protected RedirectStrategy $strategy;
-
-    #[Override]
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->options         = new RedirectStrategyOptions();
-        $this->router          = $this->createMock(RouterInterface::class);
-        $this->responseFactory = $this->createMock(ResponseFactoryInterface::class);
-        $this->strategy        = new RedirectStrategy(
-            $this->options,
-            $this->router,
-            $this->responseFactory
-        );
-    }
-
     public function testNoRequestInEvent(): void
     {
-        $event = new Event();
-        self::assertNull($this->strategy->onUnAuthorized($event));
+        $event    = new Event();
+        $strategy = new RedirectStrategy(
+            new RedirectStrategyOptions(),
+            $this->createStub(RouterInterface::class),
+            $this->createStub(ResponseFactoryInterface::class)
+        );
+        self::assertNull($strategy->onUnAuthorized($event));
     }
 
     public function testAuthenticatedUserNoRedirectWhenConnected(): void
     {
         $event   = new Event();
-        $request = $this->createMock(ServerRequestInterface::class);
+        $request = $this->createStub(ServerRequestInterface::class);
         $event->setParam('request', $request);
+        $options = new RedirectStrategyOptions();
 
-        $this->options->setRedirectWhenConnected(false);
+        $options->setRedirectWhenConnected(false);
 
-        $request->expects($this->any())->method('getAttribute')
-            ->with(UserInterface::class)
-            ->willReturn($this->createMock(UserInterface::class));
-        self::assertNull($this->strategy->onUnAuthorized($event));
+        $request->method('getAttribute')
+            ->willReturn($this->createStub(UserInterface::class));
+        $strategy = new RedirectStrategy(
+            $options,
+            $this->createStub(RouterInterface::class),
+            $this->createStub(ResponseFactoryInterface::class)
+        );
+
+        self::assertNull($strategy->onUnAuthorized($event));
     }
 
     public function testAuthenticatedUserRedirectWhenConnected(): void
     {
         $event   = new Event();
-        $request = $this->createMock(ServerRequestInterface::class);
+        $request = $this->createStub(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
-        $this->options->setRedirectWhenConnected(true);
-        $this->options->setRedirectToRouteConnected('foo');
-        $this->options->setAppendPreviousUri(false);
+        $options = new RedirectStrategyOptions();
 
-        $this->router->expects($this->once())->method('generateUri')
+        $options->setRedirectWhenConnected(true);
+        $options->setRedirectToRouteConnected('foo');
+        $options->setAppendPreviousUri(false);
+
+        $router = $this->createMock(RouterInterface::class);
+
+        $router->expects($this->once())->method('generateUri')
             ->with('foo')
             ->willReturn('bar');
 
@@ -84,27 +73,37 @@ final class RedirectStrategyTest extends TestCase
             ->with('Location', 'bar')
             ->willReturnSelf();
 
-        $this->responseFactory->expects($this->once())->method('createResponse')
+        $responseFactory = $this->createMock(ResponseFactoryInterface::class);
+        $responseFactory->expects($this->once())->method('createResponse')
             ->with(302)
             ->willReturn($response);
 
-        $request->expects($this->any())->method('getAttribute')
-            ->with(UserInterface::class)
-            ->willReturn($this->createMock(UserInterface::class));
+        $request->method('getAttribute')
+            ->willReturn($this->createStub(UserInterface::class));
 
-        self::assertSame($response, $this->strategy->onUnAuthorized($event));
+        $strategy = new RedirectStrategy(
+            $options,
+            $router,
+            $responseFactory
+        );
+
+        self::assertSame($response, $strategy->onUnAuthorized($event));
     }
 
     public function testNoAuthenticatedUser(): void
     {
         $event   = new Event();
-        $request = $this->createMock(ServerRequestInterface::class);
+        $request = $this->createStub(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
-        $this->options->setRedirectToRouteDisConnected('bar');
-        $this->options->setAppendPreviousUri(false);
+        $options = new RedirectStrategyOptions();
 
-        $this->router->expects($this->once())->method('generateUri')
+        $options->setRedirectToRouteDisConnected('bar');
+        $options->setAppendPreviousUri(false);
+
+        $router = $this->createMock(RouterInterface::class);
+
+        $router->expects($this->once())->method('generateUri')
             ->with('bar')
             ->willReturn('foo');
 
@@ -113,15 +112,22 @@ final class RedirectStrategyTest extends TestCase
             ->with('Location', 'foo')
             ->willReturnSelf();
 
-        $this->responseFactory->expects($this->once())->method('createResponse')
+        $responseFactory = $this->createMock(ResponseFactoryInterface::class);
+
+        $responseFactory->expects($this->once())->method('createResponse')
             ->with(302)
             ->willReturn($response);
 
-        $request->expects($this->any())->method('getAttribute')
-            ->with(UserInterface::class)
+        $request->method('getAttribute')
             ->willReturn(null);
 
-        self::assertSame($response, $this->strategy->onUnAuthorized($event));
+        $strategy = new RedirectStrategy(
+            $options,
+            $router,
+            $responseFactory
+        );
+
+        self::assertSame($response, $strategy->onUnAuthorized($event));
     }
 
     public function testAppendPreviousUri(): void
@@ -130,23 +136,26 @@ final class RedirectStrategyTest extends TestCase
         $request = $this->createMock(ServerRequestInterface::class);
         $event->setParam('request', $request);
 
-        $this->options->setRedirectToRouteDisConnected('bar');
-        $this->options->setAppendPreviousUri(true);
-        $this->options->setPreviousUriQueryKey('redirect');
+        $options = new RedirectStrategyOptions();
+        $options->setRedirectToRouteDisConnected('bar');
+        $options->setAppendPreviousUri(true);
+        $options->setPreviousUriQueryKey('redirect');
 
-        $this->router->expects($this->once())->method('generateUri')
+        $router = $this->createMock(RouterInterface::class);
+        $router->expects($this->once())->method('generateUri')
             ->with('bar')
             ->willReturn('foo');
 
         $response = $this->createMock(ResponseInterface::class);
 
-        $this->responseFactory->expects($this->once())->method('createResponse')
+        $responseFactory = $this->createMock(ResponseFactoryInterface::class);
+        $responseFactory->expects($this->once())->method('createResponse')
             ->with(302)
             ->willReturn($response);
 
-        $request->expects($this->any())->method('getAttribute')
-            ->with(UserInterface::class)
+        $request->method('getAttribute')
             ->willReturn(null);
+
         $uri = $this->createMock(UriInterface::class);
         $uri->expects($this->once())->method('__toString')
             ->willReturn('baz');
@@ -156,6 +165,11 @@ final class RedirectStrategyTest extends TestCase
             ->with('Location', 'foo?redirect=baz')
             ->willReturnSelf();
 
-        self::assertSame($response, $this->strategy->onUnAuthorized($event));
+        $strategy = new RedirectStrategy(
+            $options,
+            $router,
+            $responseFactory
+        );
+        self::assertSame($response, $strategy->onUnAuthorized($event));
     }
 }

@@ -22,7 +22,7 @@ final class UnauthorizedStrategyTest extends TestCase
 
         $unauthorizedStrategy = new UnauthorizedStrategy(
             $options,
-            $this->createMock(TemplateRendererInterface::class)
+            $this->createStub(TemplateRendererInterface::class)
         );
         $event                = new Event();
         self::assertEquals(null, $unauthorizedStrategy->onUnAuthorized($event));
@@ -42,7 +42,7 @@ final class UnauthorizedStrategyTest extends TestCase
             $renderer
         );
         $event                = new Event();
-        $event->setParam('request', $this->createMock(RequestInterface::class));
+        $event->setParam('request', $this->createStub(RequestInterface::class));
         self::assertInstanceOf(HtmlResponse::class, $unauthorizedStrategy->onUnAuthorized($event));
     }
 }

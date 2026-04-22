@@ -36,21 +36,21 @@ final class GuardMiddlewareTest extends TestCase
 
     public function testNoRoute(): void
     {
-        $response = $this->createMock(ResponseInterface::class);
+        $response = $this->createStub(ResponseInterface::class);
         $this->request->expects($this->once())->method('getAttribute')
             ->with(RouteResult::class)
             ->willReturn(null);
         $this->handler->expects($this->once())->method('handle')
             ->with($this->request)
             ->willReturn($response);
-        $guards     = [$this->createMock(GuardInterface::class)];
-        $middleware = new GuardMiddleware($this->createMock(Options::class), $guards);
+        $guards     = [$this->createStub(GuardInterface::class)];
+        $middleware = new GuardMiddleware($this->createStub(Options::class), $guards);
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
     public function testRouteNotFound(): void
     {
-        $response    = $this->createMock(ResponseInterface::class);
+        $response    = $this->createStub(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
 
         // return false to mock route not found
@@ -64,14 +64,14 @@ final class GuardMiddlewareTest extends TestCase
             ->with($this->request)
             ->willReturn($response);
 
-        $guards     = [$this->createMock(GuardInterface::class)];
-        $middleware = new GuardMiddleware($this->createMock(Options::class), $guards);
+        $guards     = [$this->createStub(GuardInterface::class)];
+        $middleware = new GuardMiddleware($this->createStub(Options::class), $guards);
         self::assertSame($response, $middleware->process($this->request, $this->handler));
     }
 
     public function testIsGrantedPolicyAllow(): void
     {
-        $response    = $this->createMock(ResponseInterface::class);
+        $response    = $this->createStub(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
         $routeGuard  = $this->createMock(GuardInterface::class);
         $options     = $this->createMock(Options::class);
@@ -100,7 +100,7 @@ final class GuardMiddlewareTest extends TestCase
 
     public function testIsGrantedPolicyDeny(): void
     {
-        $response    = $this->createMock(ResponseInterface::class);
+        $response    = $this->createStub(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
         $routeGuard  = $this->createMock(GuardInterface::class);
         $options     = $this->createMock(Options::class);
@@ -129,7 +129,7 @@ final class GuardMiddlewareTest extends TestCase
 
     public function testIsGrantedMultipleGuards(): void
     {
-        $response    = $this->createMock(ResponseInterface::class);
+        $response    = $this->createStub(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
         $routeGuard1 = $this->createMock(GuardInterface::class);
         $routeGuard2 = $this->createMock(GuardInterface::class);
@@ -162,7 +162,7 @@ final class GuardMiddlewareTest extends TestCase
 
     public function testNotGranted(): void
     {
-        $response    = $this->createMock(ResponseInterface::class);
+        $response    = $this->createStub(ResponseInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
         $routeGuard  = $this->createMock(GuardInterface::class);
         $options     = $this->createMock(Options::class);

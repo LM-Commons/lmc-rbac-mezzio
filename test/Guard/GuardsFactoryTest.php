@@ -56,7 +56,7 @@ final class GuardsFactoryTest extends TestCase
         $guardPluginManager = $this->createMock(GuardPluginManager::class);
         $guardPluginManager->expects($this->once())->method('get')
             ->with(RouteGuard::class)
-            ->willReturn($this->createMock(RouteGuard::class));
+            ->willReturn($this->createStub(RouteGuard::class));
         $this->container->expects($this->exactly(2))->method('get')
             ->willReturnMap([
                 [Options::class, $options],

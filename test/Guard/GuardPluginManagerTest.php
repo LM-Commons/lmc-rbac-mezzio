@@ -21,7 +21,7 @@ final class GuardPluginManagerTest extends TestCase
         $options       = [
             'factories' => [
                 'foo' => function (ContainerInterface $container): GuardInterface {
-                    return $this->createMock(GuardInterface::class);
+                    return $this->createStub(GuardInterface::class);
                 },
             ],
         ];

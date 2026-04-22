@@ -26,14 +26,14 @@ final class RoutePermissionsGuardTest extends TestCase
 {
     public function testCreateRoutePermissionsGuardDefault(): void
     {
-        $authorizationService = $this->createMock(AuthorizationServiceInterface::class);
+        $authorizationService = $this->createStub(AuthorizationServiceInterface::class);
         $routeGuard           = new RoutePermissionGuard($authorizationService);
         $this->assertEquals(GuardInterface::POLICY_ALLOW, $routeGuard->getProtectionPolicy());
     }
 
     public function testSetPolicyRouteGuard(): void
     {
-        $authorizationService = $this->createMock(AuthorizationServiceInterface::class);
+        $authorizationService = $this->createStub(AuthorizationServiceInterface::class);
         $routeGuard           = new RoutePermissionGuard($authorizationService, [], GuardInterface::POLICY_DENY);
         $this->assertEquals(GuardInterface::POLICY_DENY, $routeGuard->getProtectionPolicy());
 
@@ -50,11 +50,11 @@ final class RoutePermissionsGuardTest extends TestCase
         bool $isAllowed,
     ): void {
         $authorizationService = $this->getAuthorizationService();
-        $request              = $this->createMock(ServerRequestInterface::class);
+        $request              = $this->createStub(ServerRequestInterface::class);
         $routeResult          = $this->createMock(RouteResult::class);
-        $identity             = $this->createMock(IdentityInterface::class);
-        $identity->expects($this->any())->method('getRoles')->willReturn($roles);
-        $request->expects($this->any())->method('getAttribute')
+        $identity             = $this->createStub(IdentityInterface::class);
+        $identity->method('getRoles')->willReturn($roles);
+        $request->method('getAttribute')
             ->willReturnMap([
                 [RouteResult::class, null, $routeResult],
                 [UserInterface::class, null, $identity],
@@ -224,7 +224,7 @@ final class RoutePermissionsGuardTest extends TestCase
             new Rbac(),
             $roleService,
             new AssertionPluginManager(
-                $this->createMock(ContainerInterface::class),
+                $this->createStub(ContainerInterface::class),
                 []
             )
         );

@@ -29,7 +29,7 @@ final class RoutePermissionsGuardFactoryTest extends TestCase
         $container->expects($this->exactly(2))->method('get')
             ->willReturnMap([
                 [Options::class, $options],
-                [AuthorizationServiceInterface::class, $this->createMock(AuthorizationServiceInterface::class)],
+                [AuthorizationServiceInterface::class, $this->createStub(AuthorizationServiceInterface::class)],
             ]);
         $factory = new RoutePermissionGuardFactory();
         $factory($container);
@@ -64,7 +64,7 @@ final class RoutePermissionsGuardFactoryTest extends TestCase
                 [Options::class, $options],
                 [
                     AuthorizationServiceInterface::class,
-                    $this->createMock(AuthorizationServiceInterface::class),
+                    $this->createStub(AuthorizationServiceInterface::class),
                 ],
             ]);
         if ($expectException) {
