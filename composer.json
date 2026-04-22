@@ -22,8 +22,8 @@
     "laminas/laminas-eventmanager": "^3.14",
     "lm-commons/lmc-rbac": "^2.2",
     "mezzio/mezzio-authentication": "^1.11",
-    "mezzio/mezzio-router": "^3.7",
-    "mezzio/mezzio-template": "^2.1",
+    "mezzio/mezzio-router": "^3.7 || ^4.0",
+    "mezzio/mezzio-template": "^2.1 || ^3.0",
     "psr/container": "^1.1"
   },
   "require-dev": {
