@@ -23,14 +23,14 @@ final class RouteGuardTest extends TestCase
 {
     public function testCreateRouteGuardDefault(): void
     {
-        $roleService = $this->createMock(RoleServiceInterface::class);
+        $roleService = $this->createStub(RoleServiceInterface::class);
         $routeGuard  = new RouteGuard($roleService);
         $this->assertEquals(GuardInterface::POLICY_ALLOW, $routeGuard->getProtectionPolicy());
     }
 
     public function testSetPolicyRouteGuard(): void
     {
-        $roleService = $this->createMock(RoleServiceInterface::class);
+        $roleService = $this->createStub(RoleServiceInterface::class);
         $routeGuard  = new RouteGuard($roleService, [], GuardInterface::POLICY_DENY);
         $this->assertEquals(GuardInterface::POLICY_DENY, $routeGuard->getProtectionPolicy());
 
@@ -50,12 +50,12 @@ final class RouteGuardTest extends TestCase
             $this->getBaseRoleService(),
             new RecursiveRoleIteratorStrategy()
         );
-        $request     = $this->createMock(ServerRequestInterface::class);
+        $request     = $this->createStub(ServerRequestInterface::class);
         $routeResult = $this->createMock(RouteResult::class);
-        $identity    = $this->createMock(IdentityInterface::class);
-        $identity->expects($this->any())->method('getRoles')->willReturn($roles);
+        $identity    = $this->createStub(IdentityInterface::class);
+        $identity->method('getRoles')->willReturn($roles);
 
-        $request->expects($this->any())->method('getAttribute')
+        $request->method('getAttribute')
             ->willReturnMap([
                 [RouteResult::class, null, $routeResult],
                 [UserInterface::class, null, $identity],

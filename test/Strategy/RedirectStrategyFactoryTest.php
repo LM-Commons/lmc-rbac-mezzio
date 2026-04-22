@@ -22,8 +22,8 @@ final class RedirectStrategyFactoryTest extends TestCase
         $container->expects($this->exactly(3))->method('get')
             ->willReturnMap([
                 [Options::class, $options],
-                [RouterInterface::class, $this->createMock(RouterInterface::class)],
-                [ResponseFactoryInterface::class, $this->createMock(ResponseFactoryInterface::class)],
+                [RouterInterface::class, $this->createStub(RouterInterface::class)],
+                [ResponseFactoryInterface::class, $this->createStub(ResponseFactoryInterface::class)],
             ]);
         $factory = new RedirectStrategyFactory();
         $factory($container);

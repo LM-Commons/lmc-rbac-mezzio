@@ -12,6 +12,7 @@ use LmcTest\Rbac\Mezzio\Assets\TestStrategy;
 use Override;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,17 +22,15 @@ use Throwable;
 #[CoversClass(UnauthorizedHandler::class)]
 final class UnauthorizedHandlerTest extends TestCase
 {
-    /** @var ServerRequestInterface&MockObject */
-    protected ServerRequestInterface $request;
+    protected ServerRequestInterface&Stub $request;
 
-    /** @var RequestHandlerInterface&MockObject */
-    protected RequestHandlerInterface $handler;
+    protected RequestHandlerInterface&MockObject $handler;
 
     #[Override]
     public function setUp(): void
     {
         parent::setUp();
-        $this->request = $this->createMock(ServerRequestInterface::class);
+        $this->request = $this->createStub(ServerRequestInterface::class);
         $this->handler = $this->createMock(RequestHandlerInterface::class);
     }
 
@@ -42,7 +41,7 @@ final class UnauthorizedHandlerTest extends TestCase
     {
         $options  = new Options();
         $handler  = new UnauthorizedHandler($options);
-        $response = $this->createMock(ResponseInterface::class);
+        $response = $this->createStub(ResponseInterface::class);
 
         $this->handler->expects($this->once())->method('handle')
             ->with($this->request)

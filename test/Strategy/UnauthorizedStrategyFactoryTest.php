@@ -21,7 +21,7 @@ final class UnauthorizedStrategyFactoryTest extends TestCase
         $container->expects($this->exactly(2))->method('get')
             ->willReturnMap([
                 [Options::class, $options],
-                [TemplateRendererInterface::class, $this->createMock(TemplateRendererInterface::class)],
+                [TemplateRendererInterface::class, $this->createStub(TemplateRendererInterface::class)],
             ]);
         $factory = new UnauthorizedStrategyFactory();
         $factory($container);

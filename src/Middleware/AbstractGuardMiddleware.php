@@ -11,5 +11,5 @@ abstract class AbstractGuardMiddleware implements EventManagerAwareInterface
 {
     use EventManagerAwareTrait;
 
-    public const EVENT_NAME = 'unauthorized';
+    public const string EVENT_NAME = 'unauthorized';
 }

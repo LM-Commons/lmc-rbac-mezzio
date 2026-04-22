@@ -21,19 +21,19 @@ interface GuardInterface
     /**
      * Constant for guard that can be added to the event result
      */
-    public const GUARD_UNAUTHORIZED = 'guard-unauthorized';
+    public const string GUARD_UNAUTHORIZED = 'guard-unauthorized';
 
     /**
      * Protection policy constants
      */
-    public const POLICY_DENY  = 'deny';
-    public const POLICY_ALLOW = 'allow';
+    public const string POLICY_DENY  = 'deny';
+    public const string POLICY_ALLOW = 'allow';
 
     /**
      * Condition constants
      */
-    public const CONDITION_OR  = 'OR';
-    public const CONDITION_AND = 'AND';
+    public const string CONDITION_OR  = 'OR';
+    public const string CONDITION_AND = 'AND';
 
     public function isGranted(ServerRequestInterface $request): bool;
 }

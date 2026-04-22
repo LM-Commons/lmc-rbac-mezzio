@@ -30,7 +30,7 @@ final class RouteGuardFactoryTest extends TestCase
         $container->expects($this->exactly(2))->method('get')
             ->willReturnMap([
                 [Options::class, $options],
-                [RoleServiceInterface::class, $this->createMock(RoleServiceInterface::class)],
+                [RoleServiceInterface::class, $this->createStub(RoleServiceInterface::class)],
             ]);
         $factory = new RouteGuardFactory();
         $factory($container);

@@ -216,8 +216,8 @@ final class RoleServiceTest extends TestCase
         array $rolesToCheck,
         bool $doesMatch
     ): void {
-        $identity = $this->createMock(IdentityInterface::class);
-        $identity->expects($this->any())->method('getRoles')->willReturn($identityRoles);
+        $identity = $this->createStub(IdentityInterface::class);
+        $identity->method('getRoles')->willReturn($identityRoles);
 
         $roleProvider    = new InMemoryRoleProvider($rolesConfig);
         $baseRoleService = new BaseRoleService($roleProvider, 'guest');
