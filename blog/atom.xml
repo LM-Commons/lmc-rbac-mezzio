@@ -15,6 +15,7 @@
         <summary type="html"><![CDATA[This is a sample blog post.]]></summary>
         <content type="html"><![CDATA[<p>This is a sample blog post.</p>
 <!-- -->
+<!-- -->
 <p>If you want to add your name as an author, edit the <code>blog/authors.yml</code> file.</p>]]></content>
         <author>
             <name>Eric Richer</name>

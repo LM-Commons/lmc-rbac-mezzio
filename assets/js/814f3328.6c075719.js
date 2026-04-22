@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkdocs=globalThis.webpackChunkdocs||[]).push([[472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Sample blog post","permalink":"/lmc-rbac-mezzio/blog/sample-post","unlisted":false,"date":"2025-11-26T00:00:00.000Z"}]}')}}]);

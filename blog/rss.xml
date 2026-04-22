@@ -16,6 +16,7 @@
             <description><![CDATA[This is a sample blog post.]]></description>
             <content:encoded><![CDATA[<p>This is a sample blog post.</p>
 <!-- -->
+<!-- -->
 <p>If you want to add your name as an author, edit the <code>blog/authors.yml</code> file.</p>]]></content:encoded>
             <category>laminas</category>
             <category>mezzio</category>
