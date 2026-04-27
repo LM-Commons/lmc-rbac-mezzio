@@ -150,6 +150,23 @@ const config = {
               },
             ],
           },
+          {
+            title: 'Other',
+            items: [
+              {
+                label: 'Disclaimer',
+                to: 'disclaimer',
+              },
+              {
+                label: 'Privacy',
+                to: 'privacy',
+              },
+              {
+                label: 'Cookies Policy',
+                to: 'cookies-policy',
+              },
+            ],
+          }
         ],
         copyright: `Copyright © ${new Date().getFullYear()} LM-Commons Organization. Built with Docusaurus.`,
       },
