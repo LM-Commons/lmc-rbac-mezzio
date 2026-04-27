@@ -16,7 +16,7 @@ We use cookies to provide you with our open source websites and any content, rel
 and services (e.g. apps, tutorials, access to resources, etc.) made available to you on this website, or any other 
 website that links to this Cookie Policy (collectively, the"Website"). 
 This policy explains how we use cookies and the choices you have. 
-Except as otherwise stated in this policy, the [Privacy Policy](/privacy) will apply to our processing of the data we collect 
+Except as otherwise stated in this policy, the [Privacy Policy](privacy.mdx) will apply to our processing of the data we collect 
 via cookies.
 
 For clarity, this Cookies Policy only applies to this Website and does not apply to any:
